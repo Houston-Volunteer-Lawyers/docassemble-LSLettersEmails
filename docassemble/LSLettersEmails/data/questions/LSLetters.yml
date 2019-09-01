@@ -23,9 +23,9 @@ code: |
 ---
 code: |
   if message.recipient == "client":
-    email_sent_ok = send_email(to=client, template="{$ message.text }")
+    email_sent_ok = send_email(to=client, cc="${ case_email }", template="{$ message.text }")
   if message.recipient == "advocate":
-    email_sent_ok = send_email(to=advocate, template="{$ message.text }")
+    email_sent_ok = send_email(to=advocate, cc="${ case_email }", template="{$ message.text }")
 ---
 modules:
   - docassemble.base.util
@@ -63,10 +63,14 @@ choices:
 question: |
   Email Sent
 event: LS_send_email
+subquestion: | 
+  % if email_sent_ok:
+  Email Sent
+  % endif
 ---
 question: |
-  Email Sent
-event: LS_send_email
+  Letter Sent
+event: LS_send_letter
 ---
 template: Letter1
 subject: |
