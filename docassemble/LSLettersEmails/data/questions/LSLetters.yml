@@ -48,8 +48,8 @@ subquestion:
   Who is the recipient?
 field: clientmessage.recipient
 buttons: 
-  - "${ client.full_name() }, Client": client
-  - "${ advocate.full_name() }, advocate": advocate
+  - "${ client.name.full() }, Client": client
+  - "${ advocate.name.full() }, advocate": advocate
 ---
 question: | 
   Letter  
