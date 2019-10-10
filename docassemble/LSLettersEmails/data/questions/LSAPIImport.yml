@@ -1,0 +1,59 @@
+comment: |
+  This YML file works with legal_server.py to help you make use of JSON data sent
+  from Legal Server (using Jonathan Pyle's instruction block trick)
+  
+  It also defines three objects: client, advocate, and adverse_parties. If the 
+  interview was not called from Legal Server, fallback questions are provided.
+---
+modules:
+  - docassemble.base.util
+---
+objects:
+  - client: Individual
+  - advocate: Individual
+  - adverse_parties: DAList.using(object_type=Person,auto_gather=False,gathered=True)
+---
+mandatory: True
+code: |
+  ls_fields
+---
+generic object: Individual
+question: |
+  ${capitalize(x.object_possessive('name'))}
+fields:
+  - First name: x.name.first
+  - Middle name: x.name.middle
+    required: False
+  - Last name: x.name.last
+---
+generic object: Individual
+question: |
+  ${capitalize(x.possessive('address'))}
+fields:
+  - address: x.address.address
+    address autocomplete: True
+  - unit: x.address.unit
+    required: False
+  - city: x.address.city
+  - state: x.address.state
+    code: |
+      states_list()
+    default: "TX"
+  - zip: x.address.zip
+  - county: x.address.county
+    required: False
+---
+question: |
+  Who is the ${ordinal(i)} adverse party?
+fields:
+  - Name: adverse_parties[i].name.text
+---
+question: |
+  Are there any other adverse parties?
+subquestion: |
+  So far you've told us about ${adverse_parties}
+yesno: adverse_parties.there_is_another
+---
+generic object: Individual
+code: |
+  x.program = ''

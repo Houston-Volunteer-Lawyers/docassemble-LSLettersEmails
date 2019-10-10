@@ -43,9 +43,9 @@ def find_package_data(where='.', package='', exclude=standard_exclude, exclude_d
     return out
 
 setup(name='docassemble.LSLettersEmails',
-      version='0.0.2',
+      version='0.0.3',
       description=('LS Letters'),
-      long_description='Sample text',
+      long_description='Switched to API',
       long_description_content_type='text/markdown',
       author='Michael Hofrichter',
       author_email='michael.hofrichter@hvlp.org',
