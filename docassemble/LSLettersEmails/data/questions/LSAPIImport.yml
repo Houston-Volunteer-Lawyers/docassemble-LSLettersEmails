@@ -13,10 +13,6 @@ objects:
   - advocate: Individual
   - adverse_parties: DAList.using(object_type=Person,auto_gather=False,gathered=True)
 ---
-mandatory: True
-code: |
-  ls_fields
----
 generic object: Individual
 question: |
   ${capitalize(x.object_possessive('name'))}
