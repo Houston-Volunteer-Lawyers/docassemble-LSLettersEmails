@@ -1,0 +1,31 @@
+template: Letter1
+subject: |
+  Greetings, ${ client }!
+content: |
+  This is an e-mail sent from a
+  **docassemble** interview.
+  Have a nice day!
+---
+template: Letter2
+subject: |
+  Greetings, ${ advocate }!
+content: |
+  This is an e-mail sent from a
+  **docassemble** interview.
+  Have a nice day!
+---
+template: ClosingLetterReconciledwithSpouse
+subject: | 
+  ${ casenumber }: LPC
+content: | 
+  Dear ${ client.title.en } ${ client.name.last}, 
+
+  The volunteer attorney that we found to help you with your legal matter informed us that you have reconciled with your spouse. For this reason, the volunteer attorney has returned you file to us and will no longer represent you in this matter.
+  
+  Your file at Houston Volunteer Lawyers has been closed. 
+  
+  If you need services in the future, you must reapply.
+  
+  Sincerely,
+  
+  

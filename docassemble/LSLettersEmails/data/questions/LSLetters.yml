@@ -13,6 +13,10 @@ metadata:
     - name: Michael Hofrichter
       organization: Houston Volunteer Lawyers
   revision_date: 2019-10-10
+  tags: 
+    - "sidebar_assignment_program"
+    - "Legalserver"
+    - "Staff"
 ---
 mandatory: True
 code: |
@@ -27,6 +31,22 @@ code: |
   if clientmessage.recipient == "advocate":
     email_sent_ok = send_email(to=advocate, cc="${ case_email }", template="{$ clientmessage.text }")
 ---
+code: |
+  if print(case_email[-25]) == "@hvl-demo.legalserver.org":
+    casenumber = (print(case_email[(len(case_email)-25)]))
+  elif case_email == "@hvl.legalserver.org": 
+    casenumber = (print(case_email[(len(case_email)-20)]))
+  else:
+    casenumber = (print(case_email[(case_email.find('@')-1)]))
+---
+code: |
+  if client.gender == "male":
+    client.title.en = "Mr."
+  elif client.gender == "female":  
+    client.title.en = "Ms."
+  else: 
+    client.title.en = "Mx"
+---
 modules:
   - docassemble.base.util
 ---
@@ -36,11 +56,19 @@ objects:
 question: |
   Method
 subquestion: |
-  How do you want to send the clientmessage to the recipient?
+  How do you want to send the message to the recipient?
 field: clientmessage.method
 buttons: 
   - Email
   - Letter
+---
+question: |
+  Case Email
+subquestion: |
+  What is the case email?
+fields:
+  - Email: case_email
+    datatype: email
 ---
 question: |
   Recipient
@@ -52,13 +80,45 @@ buttons:
   - "${ advocate.name.full() }, advocate": advocate
 ---
 question: | 
+  Gender 
+subquestion: 
+  What is the recipient's gender? 
+field: client.gender
+choices: 
+  - Male: male
+  - Female: female
+  - Neutral: neutral
+---
+question: | 
+  Gender 
+subquestion: 
+  What is the recipient's gender? 
+field: advocate.gender
+choices: 
+  - Male: male
+  - Female: female
+  - Neutral: neutral
+---
+question: | 
   Letter  
 subquestion: 
   Which letter to send to the recipient? 
 field: clientmessage.text
 choices: 
-  - Letter1
-  - Letter2
+  - Letter1: Letter1
+  - Letter2: Letter2
+  - Closing due to reconciling with spouse after referral: ClosingLetterReconciledwithSpouse
+---
+question: | 
+  Language  
+subquestion: 
+  What language should the letter be in?  
+field: clientmessage.language
+choices: 
+  - English: en
+  - Spanish: es
+  - Chinese: zo
+  - Vietnamese: vi
 ---
 question: |
   Email Sent
@@ -69,21 +129,15 @@ subquestion: |
   % endif
 ---
 question: |
-  Letter Sent
+  Letter Generated
+subquestion: | 
+  The letter was generated and sent to the case email. It can also be downloaded here. 
+attachment: 
+  name: ${ clientmessage.text }
+  filename: ${ clientmessage.text }
+  docx template file: Letterhead_client.docx
+  valid formats: 
+    - pdf
+    - docx
 event: LS_send_letter
 ---
-template: Letter1
-subject: |
-  Greetings, ${ client }!
-content: |
-  This is an e-mail sent from a
-  **docassemble** interview.
-  Have a nice day!
----
-template: Letter2
-subject: |
-  Greetings, ${ advocate }!
-content: |
-  This is an e-mail sent from a
-  **docassemble** interview.
-  Have a nice day!
