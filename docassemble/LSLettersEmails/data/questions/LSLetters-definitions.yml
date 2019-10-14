@@ -1,0 +1,59 @@
+code: |
+  if client.gender == "male":
+    client.title.en = "Mr."
+  elif client.gender == "female":  
+    client.title.en = "Ms."
+  else: 
+    client.title.en = "Mx"
+---
+code: |
+  if advocate.gender == "male":
+    advocate.title = "Mr."
+  elif advocate.gender == "female":
+    advocate.title = "Ms."
+  else: 
+    advocate.title = "Mx"
+---
+code: |
+  advocate.salutation = "Dear"
+---
+code: |  
+  if client.gender == "male": 
+    client.title.es = "Sr."
+  elif client.gender == "female":
+    client.title.es = "Sra."
+  else:
+    client.title.es = ""
+---
+code: |
+  if client.gender == "male":
+    client.title.vi = "Ông."
+  elif client.gender == "female":
+    client.title.vi = "Bà."
+  else: 
+    client.title.vi = ""
+---
+code: |
+  if client.gender == "male":
+    client.title.zo = "先生。"
+  elif client.gender == "female":
+    client.title.zo = "太太。"
+  else: 
+    client.title.zo = ""
+---
+code: |
+  if client.language == "en":
+    client.salutation = "Dear"
+  elif client.language == "es":
+    if client.gender == "male": 
+      client.salutation = "Estimado"
+    elif client.gender == "female":
+      client.salutation = "Estimada"
+    else:
+      client.saludation = "Estimado/a"
+  elif client.language == "vi":
+    client.salutation = "Kính gửi"
+  elif client.language == "zo":
+    client.salutation = "亲爱的"
+  else:
+    client.salutation = "Dear"
