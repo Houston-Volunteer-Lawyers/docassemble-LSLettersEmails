@@ -1,3 +1,14 @@
+---
+question: | 
+  Letter  
+subquestion: 
+  Which letter to send to the recipient? 
+field: clientmessage.text
+choices: 
+  - Letter1: Letter1
+  - Letter2: Letter2
+  - Closing due to reconciling with spouse after referral: ClosingLetterReconciledwithSpouse
+---
 template: Letter1
 subject: |
   Greetings, ${ client }!
