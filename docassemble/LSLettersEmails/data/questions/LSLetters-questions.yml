@@ -7,13 +7,13 @@ buttons:
   - Email
   - Letter
 ---
-question: |
-  Case Email
-subquestion: |
-  What is the case email?
-fields:
-  - Email: case_email
-    datatype: email
+# question: |
+#   Case Email
+# subquestion: |
+#   What is the case email?
+# fields:
+#   - Email: case_email
+#     datatype: email
 ---
 question: |
   Client Email
@@ -32,6 +32,27 @@ fields:
     datatype: email
 ---
 question: |
+  Pro Bono Advocate Email
+subquestion: |
+  What is the Pro Bono Advocate's email?
+fields:
+  - Email: pbadvocate.email
+    datatype: email
+---
+question: |
+  Pro Bono Advocate Firm
+subquestion: |
+  What is the Pro Bono Advocate's firm?
+fields:
+  - Firm: pbadvocate.firm
+---
+question: |
+  Pro Bono Advocate Phone
+subquestion: |
+  What is the Pro Bono Advocate's Phone Number?
+fields:
+  - Phone: pbadvocate.phone_number
+---question: |
   Recipient
 subquestion: 
   Who is the recipient?
@@ -39,6 +60,7 @@ field: clientmessage.recipient
 buttons: 
   - "${ client.name.full() }, Client": client
   - "${ advocate.name.full() }, advocate": advocate
+  - "Pro Bono Volunteer": pbadvocate
 ---
 question: | 
   Gender 
@@ -61,6 +83,16 @@ choices:
   - Neutral: neutral
 ---
 question: | 
+  Gender 
+subquestion: 
+  What is the recipient's gender? 
+field: pbadvocate.gender
+choices: 
+  - Male: male
+  - Female: female
+  - Neutral: neutral
+---
+question: | 
   Language  
 subquestion: 
   What language should the letter be in?  
@@ -72,3 +104,19 @@ choices:
   - Chinese: zo
   - Vietnamese: vi
 ---
+generic object: Individual
+question: |
+  ${capitalize(x.possessive('address'))}
+fields:
+  - address: x.address.address
+    address autocomplete: True
+  - unit: x.address.unit
+    required: False
+  - city: x.address.city
+  - state: x.address.state
+    code: |
+      states_list()
+    default: "TX"
+  - zip: x.address.zip
+  - county: x.address.county
+    required: False

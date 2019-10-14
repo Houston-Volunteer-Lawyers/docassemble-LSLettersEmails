@@ -39,6 +39,8 @@ code: |
     email_sent_ok = send_email(to=client, cc=value('case_email'), template=value(clientmessage.text))
   elif clientmessage.recipient == "advocate":
     email_sent_ok = send_email(to=advocate, cc=value('case_email'), template=value(clientmessage.text))
+  elif clientmessage.recipient == "pbadvocate":
+    email_sent_ok = send_email(to=pbadvocate, cc=value('case_email'), template=value(clientmessage.text))
 ---
 code: |
   email_copy_sent_ok = send_email(to=value('case_email'), template=LetterGenerated, attachments=[letter_to_client.pdf, letter_to_client.docx])
@@ -62,6 +64,7 @@ modules:
 ---
 objects:
   - clientmessage: DAObject
+  - pbadvocate: Individual
 ---
 question: |
   All Done
