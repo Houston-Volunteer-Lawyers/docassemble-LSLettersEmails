@@ -1,5 +1,7 @@
 include: 
   - docassemble.gbls:basic-questions-gbls.yml
+  - LSLetters-text.yml
+  - LSLetters-questions.yml
 ---
 metadata:
   title: |
@@ -12,7 +14,7 @@ metadata:
   authors:
     - name: Michael Hofrichter
       organization: Houston Volunteer Lawyers
-  revision_date: 2019-10-10
+  revision_date: 2019-10-13
   tags: 
     - "sidebar_assignment_program"
     - "Legalserver"
@@ -20,24 +22,29 @@ metadata:
 ---
 mandatory: True
 code: |
+  client.language
   if clientmessage.method == "Email":
     LS_send_email
-  if clientmessage.method == "Letter":
+  elif clientmessage.method == "Letter":
     LS_send_letter
+  all_done
 ---
 code: |
   if clientmessage.recipient == "client":
-    email_sent_ok = send_email(to=client, cc="${ case_email }", template="{$ clientmessage.text }")
-  if clientmessage.recipient == "advocate":
-    email_sent_ok = send_email(to=advocate, cc="${ case_email }", template="{$ clientmessage.text }")
+    email_sent_ok = send_email(to=client, cc=value('case_email'), template=value(clientmessage.text))
+  elif clientmessage.recipient == "advocate":
+    email_sent_ok = send_email(to=advocate, cc=value('case_email'), template=value(clientmessage.text))
 ---
 code: |
-  if print(case_email[-25]) == "@hvl-demo.legalserver.org":
-    casenumber = (print(case_email[(len(case_email)-25)]))
-  elif case_email == "@hvl.legalserver.org": 
-    casenumber = (print(case_email[(len(case_email)-20)]))
+  if case_email.count('@') > 0: 
+    if print(case_email[-25]) == "@hvl-demo.legalserver.org":
+      casenumber = (print(case_email[(len(case_email)-25)]))
+    elif case_email == "@hvl.legalserver.org": 
+      casenumber = (print(case_email[(len(case_email)-20)]))
+    else:
+      casenumber = (print(case_email[(case_email.find('@')-1)]))
   else:
-    casenumber = (print(case_email[(case_email.find('@')-1)]))
+    casenumber = case_email
 ---
 code: |
   if client.gender == "male":
@@ -47,6 +54,58 @@ code: |
   else: 
     client.title.en = "Mx"
 ---
+code: |
+  if advocate.gender == "male":
+    advocate.title = "Mr."
+  elif advocate.gender == "female":
+    advocate.title = Ms.
+  else: 
+    advocate.title = "Mx"
+---
+code: |
+  advocate.salutation = "Dear"
+---
+code: |  
+  if client.gender == "male": 
+    client.title.es = "Sr."
+  elif client.gender == "female":
+    client.title.es = "Sra."
+  else:
+    client.title.es = ""
+---
+code: |
+  if client.gender == "male":
+    client.title.vi = "Ông."
+  elif client.gender == "female":
+    client.title.vi = "Bà."
+  else: 
+    client.title.vi = ""
+---
+code: |
+  if client.gender == "male":
+    client.title.zo = "先生。"
+  elif client.gender == "female":
+    client.title.zo = "太太。"
+  else: 
+    client.title.zo = ""
+---
+code: |
+  if client.language == "en":
+    client.salutation = "Dear"
+  elif client.language == "es":
+    if client.gender == "male": 
+      client.salutation = "Estimado"
+    elif client.gender == "female":
+      client.salutation = "Estimada"
+    else:
+      client.saludation = "Estimado/a"
+  elif client.language == "vi":
+    client.salutation = "Kính gửi"
+  elif client.language == "zo":
+    client.salutation = "亲爱的"
+  else:
+    client.salutation = "Dear"
+---
 modules:
   - docassemble.base.util
 ---
@@ -54,87 +113,19 @@ objects:
   - clientmessage: DAObject
 ---
 question: |
-  Method
+  All Done
+speak_text: True
+ga id: screening_result
 subquestion: |
-  How do you want to send the message to the recipient?
-field: clientmessage.method
-buttons: 
-  - Email
-  - Letter
----
-question: |
-  Case Email
-subquestion: |
-  What is the case email?
-fields:
-  - Email: case_email
-    datatype: email
----
-question: |
-  Client Email
-subquestion: |
-  What is the client's email?
-fields:
-  - Email: client.email
-    datatype: email
----
-question: |
-  Advocate Email
-subquestion: |
-  What is the Advocate's email?
-fields:
-  - Email: advocate.email
-    datatype: email
----
-question: |
-  Recipient
-subquestion: 
-  Who is the recipient?
-field: clientmessage.recipient
-buttons: 
-  - "${ client.name.full() }, Client": client
-  - "${ advocate.name.full() }, advocate": advocate
----
-question: | 
-  Gender 
-subquestion: 
-  What is the recipient's gender? 
-field: client.gender
-choices: 
-  - Male: male
-  - Female: female
-  - Neutral: neutral
----
-question: | 
-  Gender 
-subquestion: 
-  What is the recipient's gender? 
-field: advocate.gender
-choices: 
-  - Male: male
-  - Female: female
-  - Neutral: neutral
----
-question: | 
-  Letter  
-subquestion: 
-  Which letter to send to the recipient? 
-field: clientmessage.text
-choices: 
-  - Letter1: Letter1
-  - Letter2: Letter2
-  - Closing due to reconciling with spouse after referral: ClosingLetterReconciledwithSpouse
----
-question: | 
-  Language  
-subquestion: 
-  What language should the letter be in?  
-field: clientmessage.language
-choices: 
-  - English: en
-  - Spanish: es
-  - Chinese: zo
-  - Vietnamese: vi
+  You're all done. Please feel free to close this window.
+section: conclusion
+#attachment:
+#  name: The results of your Legal Checkup
+#  filename: Screening_Results
+#  docx template file: Pro_Se_Divorce_Screening_Results.docx
+buttons:
+  - Exit: exit
+sets: all_done
 ---
 question: |
   Email Sent
@@ -149,8 +140,8 @@ question: |
 subquestion: | 
   The letter was generated and sent to the case email. It can also be downloaded here. 
 attachment: 
-  name: ${ clientmessage.text }
-  filename: ${ clientmessage.text }
+  name: L${ clientmessage.text }
+  filename: L${ clientmessage.text }
   docx template file: Letterhead-client.docx
   valid formats: 
     - pdf

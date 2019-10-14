@@ -1,0 +1,74 @@
+question: |
+  Method
+subquestion: |
+  How do you want to send the message to the recipient?
+field: clientmessage.method
+buttons: 
+  - Email
+  - Letter
+---
+question: |
+  Case Email
+subquestion: |
+  What is the case email?
+fields:
+  - Email: case_email
+    datatype: email
+---
+question: |
+  Client Email
+subquestion: |
+  What is the client's email?
+fields:
+  - Email: client.email
+    datatype: email
+---
+question: |
+  Advocate Email
+subquestion: |
+  What is the Advocate's email?
+fields:
+  - Email: advocate.email
+    datatype: email
+---
+question: |
+  Recipient
+subquestion: 
+  Who is the recipient?
+field: clientmessage.recipient
+buttons: 
+  - "${ client.name.full() }, Client": client
+  - "${ advocate.name.full() }, advocate": advocate
+---
+question: | 
+  Gender 
+subquestion: 
+  What is the recipient's gender? 
+field: client.gender
+choices: 
+  - Male: male
+  - Female: female
+  - Neutral: neutral
+---
+question: | 
+  Gender 
+subquestion: 
+  What is the recipient's gender? 
+field: advocate.gender
+choices: 
+  - Male: male
+  - Female: female
+  - Neutral: neutral
+---
+question: | 
+  Language  
+subquestion: 
+  What language should the letter be in?  
+field: clientmessage.language
+choices: 
+  - English: en
+    default: True
+  - Spanish: es
+  - Chinese: zo
+  - Vietnamese: vi
+---
