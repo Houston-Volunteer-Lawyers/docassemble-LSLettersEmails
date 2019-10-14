@@ -20,6 +20,8 @@ metadata:
     - "sidebar_assignment_program"
     - "Legalserver"
     - "Staff"
+    - "everyone"
+    - "Everyone"
 ---
 mandatory: True
 code: |
