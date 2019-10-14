@@ -37,8 +37,8 @@ code: |
   elif clientmessage.recipient == "advocate":
     email_sent_ok = send_email(to=advocate, cc=value('case_email'), template=value(clientmessage.text))
 ---
-  if clientmessage.method == "Letter":
-    email_copy_sent_ok = send_email(to=value('case_email'), template=LetterGenerated, attachments=[L${ clientmessage.text }.pdf, L${ clientmessage.text }.docx])
+code: |
+  email_copy_sent_ok = send_email(to=value('case_email'), template=LetterGenerated, attachments=messageattachments)
 ---
 code: |
   if case_email.count('@') > 0:
@@ -66,7 +66,7 @@ code: |
   if advocate.gender == "male":
     advocate.title = "Mr."
   elif advocate.gender == "female":
-    advocate.title = "Ms.""
+    advocate.title = "Ms."
   else: 
     advocate.title = "Mx"
 ---
@@ -119,6 +119,16 @@ modules:
 ---
 objects:
   - clientmessage: DAObject
+  - messageattachments: DAList
+---
+code: |
+  messageattachments.append(letter.pdf)
+  messageattachments.append(letter.docx)
+  messageattachments.gathered
+---
+code: | 
+  letter.pdf = DAFile(filename="L${ clientmessage.text }.pdf")
+  letter.docx = DAFile(filename="L${ clientmessage.text }.docx")
 ---
 question: |
   All Done
