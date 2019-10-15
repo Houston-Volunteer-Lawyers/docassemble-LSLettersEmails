@@ -36,7 +36,7 @@ code: |
 ---
 code: |
   if clientmessage.recipient == "client":
-    email_sent_ok = send_email(to=client, cc=value('ls_fields.case_email'), template=value(clientmessage.text))
+    email_sent_ok = send_email(to=client, cc=LSCase, template=value(clientmessage.text))
   elif clientmessage.recipient == "advocate":
     email_sent_ok = send_email(to=advocate, cc=value('ls_fields.case_email'), template=value(clientmessage.text))
   elif clientmessage.recipient == "pbadvocate":
