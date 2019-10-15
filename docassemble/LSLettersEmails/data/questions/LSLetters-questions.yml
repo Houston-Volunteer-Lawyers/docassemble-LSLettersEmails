@@ -97,10 +97,6 @@ question: |
   Language  
 subquestion: 
   What language should the letter be in?  
-
-  ${ ls_fields.case_email }
-
-
 field: clientmessage.language
 choices: 
   - English: en
