@@ -100,7 +100,7 @@ subquestion:
 
   ${ ls_fields.case_email }
 
-  ${ ls_fields.id }
+
 field: clientmessage.language
 choices: 
   - English: en
