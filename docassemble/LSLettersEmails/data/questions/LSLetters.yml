@@ -36,28 +36,28 @@ code: |
 ---
 code: |
   if clientmessage.recipient == "client":
-    email_sent_ok = send_email(to=client, cc=value('case_email'), template=value(clientmessage.text))
+    email_sent_ok = send_email(to=client, cc=value('LS_fields.case_email'), template=value(clientmessage.text))
   elif clientmessage.recipient == "advocate":
-    email_sent_ok = send_email(to=advocate, cc=value('case_email'), template=value(clientmessage.text))
+    email_sent_ok = send_email(to=advocate, cc=value('LS_fields.case_email'), template=value(clientmessage.text))
   elif clientmessage.recipient == "pbadvocate":
-    email_sent_ok = send_email(to=pbadvocate, cc=value('case_email'), template=value(clientmessage.text))
+    email_sent_ok = send_email(to=pbadvocate, cc=value('LS_fields.case_email'), template=value(clientmessage.text))
 ---
 code: |
   email_copy_sent_ok = send_email(to=LSCase, template=LetterGenerated, attachments=[letter_to_client.pdf, letter_to_client.docx])
 ---
 code: |
-  if case_email.count('@') > 0:
-    if case_email.count('legalserver.org') > 0: 
-      if print(case_email[-25]) == "@hvl-demo.legalserver.org":
-        casenumber = (print(case_email[(len(case_email)-25)]))
-      elif case_email == "@hvl.legalserver.org": 
-        casenumber = (print(case_email[(len(case_email)-20)]))
+  if LS_fields.case_email.count('@') > 0:
+    if LS_fields.case_email.count('legalserver.org') > 0: 
+      if print(LS_fields.case_email[-25]) == "@hvl-demo.legalserver.org":
+        casenumber = (print(LS_fields.case_email[(len(case_email)-25)]))
+      elif LS_fields.case_email == "@hvl.legalserver.org": 
+        casenumber = (print(LS_fields.case_email[(len(case_email)-20)]))
       else:
-        casenumber = (print(case_email[(case_email.find('@')-1)]))
+        casenumber = (print(LS_fields.case_email[(case_email.find('@')-1)]))
     else: 
-      casenumber = (print(case_email[(case_email.find('@')-1)]))
+      casenumber = (print(LS_fields.case_email[(case_email.find('@')-1)]))
   else:
-    casenumber = case_email
+    casenumber = LS_fields.case_email
 ---
 modules:
   - docassemble.base.util
@@ -70,7 +70,8 @@ objects:
 code: |
   LSCase.name.first = "LegalServer"
   LSCase.name.last = "Case"
-  LSCase.email = case_email
+  LSCase.email = LS_fields.case_email
+mandatory: true
 ---
 question: |
   All Done
