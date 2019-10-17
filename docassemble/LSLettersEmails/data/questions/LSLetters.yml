@@ -15,7 +15,7 @@ metadata:
   authors:
     - name: Michael Hofrichter
       organization: Houston Volunteer Lawyers
-  revision_date: 2019-10-13
+  revision_date: 2019-10-17
   tags: 
     - "sidebar_assignment_program"
     - "Legalserver"
@@ -56,13 +56,13 @@ code: |
   if ls_fields.case_email.count('@') > 0:
     if ls_fields.case_email.count('legalserver.org') > 0: 
       if print(ls_fields.case_email[-25]) == "@hvl-demo.legalserver.org":
-        casenumber = (print(ls_fields.case_email[(len(case_email)-25)]))
+        casenumber = (print(ls_fields.case_email[(len(ls_fields.case_email)-25)]))
       elif ls_fields.case_email == "@hvl.legalserver.org": 
-        casenumber = (print(ls_fields.case_email[(len(case_email)-20)]))
+        casenumber = (print(ls_fields.case_email[(len(ls_fields.case_email)-20)]))
       else:
-        casenumber = (print(ls_fields.case_email[(case_email.find('@')-1)]))
+        casenumber = (print(ls_fields.case_email[(ls_fields.case_email.find('@')-1)]))
     else: 
-      casenumber = (print(ls_fields.case_email[(case_email.find('@')-1)]))
+      casenumber = (print(ls_fields.case_email[(ls_fields.case_email.find('@')-1)]))
   else:
     casenumber = ls_fields.case_email
 ---
