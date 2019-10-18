@@ -33,7 +33,10 @@ code: |
   LSCase.email = ls_fields.case_email
 
   clientmessage.recipient
-  clientmessage.language
+  if clientmessage.recipient == "client":
+    clientmessage.language
+  else: 
+    clientmessage.language = "en"
   clientmessage.text
   if correct_letter_text == False:
     undefine(clientmessage.text)
@@ -151,5 +154,7 @@ review:
 question: | 
   Is this the correct letter?
 subquestion: |
-  ${ clientmessage.text }
+  Subject: ${ value(clientmessage.text).subject }
+  
+  ${ value(clientmessage.text) }
 yesno: correct_letter_text
