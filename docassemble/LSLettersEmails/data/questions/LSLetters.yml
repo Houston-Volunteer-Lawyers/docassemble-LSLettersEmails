@@ -34,7 +34,13 @@ code: |
 
   clientmessage.recipient
   if clientmessage.recipient == "client":
-    clientmessage.language
+    if defined(client.language):
+      if client.language == "es" || client.language == "en" || client.language == "zo" || client.language == "vi":
+        clientmessage.language = client.language
+      else: 
+        clientmessage.language
+    else: 
+      clientmessage.language
   else: 
     clientmessage.language = "en"
   clientmessage.text
@@ -65,8 +71,8 @@ code: |
     email_copy_sent_ok = send_email(to=LSCase, template=LetterGenerated, attachments=[letter_to_pbadvocate.pdf, letter_to_pbadvocate.docx])
   elif clientmessage.recipient == "advocate":
     email_copy_sent_ok = send_email(to=LSCase, template=LetterGenerated, attachments=[letter_to_client.pdf, letter_to_client.docx])
-  ---
-  code: |
+---
+code: |
   casenumber = ls_fields.casenumber
   # if ls_fields.case_email.count('@') > 0:
   #   if ls_fields.case_email.count('legalserver.org') > 0: 
