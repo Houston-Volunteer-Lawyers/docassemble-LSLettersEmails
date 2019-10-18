@@ -39,8 +39,8 @@ code: |
     clientmessage.language = "en"
   clientmessage.text
   if correct_letter_text == False:
-    undefine(clientmessage.text)
-    undefine(correct_letter_text)
+    undefine('clientmessage.text')
+    undefine('correct_letter_text')
   
   # add a review step here where you can see the text of the letter
   # client address needs to move over. 
@@ -155,6 +155,6 @@ question: |
   Is this the correct letter?
 subquestion: |
   Subject: ${ value(clientmessage.text).subject }
-  
+
   ${ value(clientmessage.text) }
 yesno: correct_letter_text
