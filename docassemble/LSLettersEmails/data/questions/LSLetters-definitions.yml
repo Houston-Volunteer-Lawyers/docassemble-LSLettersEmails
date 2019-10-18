@@ -93,8 +93,8 @@ code: |
 code: | 
   if defined(ls_fields.special_legal_problem_code):
     if ls_fields.special_legel_problem_code == "N/A":
-      LPC = ls_fields.legal_problem_code
+      LPC = "&{ ls_fields.legal_problem_code }"
     else: 
-      LPC = ls_fields.special_legal_problem_code
+      LPC = "&{ ls_fields.special_legal_problem_code }"
   else:
-    LPC = ls_fields.legal_problem_code
+    LPC = "&{ ls_fields.legal_problem_code }"
