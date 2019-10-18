@@ -15,7 +15,7 @@ metadata:
   authors:
     - name: Michael Hofrichter
       organization: Houston Volunteer Lawyers
-  revision_date: 2019-10-17
+  revision_date: 2019-10-18
   tags: 
     - "sidebar_assignment_program"
     - "Legalserver"
@@ -59,21 +59,27 @@ code: |
     email_sent_ok = send_email(to=pbadvocate, cc=LSCase, template=value(clientmessage.text))
 ---
 code: |
-  email_copy_sent_ok = send_email(to=LSCase, template=LetterGenerated, attachments=[letter_to_client.pdf, letter_to_client.docx])
----
-code: |
-  if ls_fields.case_email.count('@') > 0:
-    if ls_fields.case_email.count('legalserver.org') > 0: 
-      if print(ls_fields.case_email[-25]) == "@hvl-demo.legalserver.org":
-        casenumber = (print(ls_fields.case_email[(len(ls_fields.case_email)-25)]))
-      elif ls_fields.case_email == "@hvl.legalserver.org": 
-        casenumber = (print(ls_fields.case_email[(len(ls_fields.case_email)-20)]))
-      else:
-        casenumber = (print(ls_fields.case_email[(ls_fields.case_email.find('@')-1)]))
-    else: 
-      casenumber = (print(ls_fields.case_email[(ls_fields.case_email.find('@')-1)]))
-  else:
-    casenumber = ls_fields.case_email
+  if clientmessage.recipient == "client": 
+    email_copy_sent_ok = send_email(to=LSCase, template=LetterGenerated, attachments=[letter_to_client.pdf, letter_to_client.docx])
+  elif clientmessage.recipient == "pbadvocate": 
+    email_copy_sent_ok = send_email(to=LSCase, template=LetterGenerated, attachments=[letter_to_pbadvocate.pdf, letter_to_pbadvocate.docx])
+  elif clientmessage.recipient == "advocate":
+    email_copy_sent_ok = send_email(to=LSCase, template=LetterGenerated, attachments=[letter_to_client.pdf, letter_to_client.docx])
+  # ---
+  # code: |
+  # casenumber = ls_fields['id']
+  # if ls_fields.case_email.count('@') > 0:
+  #   if ls_fields.case_email.count('legalserver.org') > 0: 
+  #     if print(ls_fields.case_email[-25]) == "@hvl-demo.legalserver.org":
+  #       casenumber = (print(ls_fields.case_email[(len(ls_fields.case_email)-25)]))
+  #     elif ls_fields.case_email == "@hvl.legalserver.org": 
+  #       casenumber = (print(ls_fields.case_email[(len(ls_fields.case_email)-20)]))
+  #     else:
+  #       casenumber = (print(ls_fields.case_email[(ls_fields.case_email.find('@')-1)]))
+  #   else: 
+  #     casenumber = (print(ls_fields.case_email[(ls_fields.case_email.find('@')-1)]))
+  # else:
+  #   casenumber = ls_fields.case_email
 ---
 modules:
   - docassemble.base.util
@@ -82,15 +88,13 @@ objects:
   - clientmessage: DAObject
   - pbadvocate: Individual
   - LSCase: Individual
----
-code: |
-
-mandatory: true
+  - sender: Individual
+  - initiator: Individual
 ---
 question: |
   All Done
 speak_text: True
-ga id: screening_result
+ga id: all_done
 subquestion: |
   You're all done. Please feel free to close this window.
 section: conclusion
@@ -105,11 +109,17 @@ subquestion: |
   % if email_sent_ok:
   Email sent to ${ clientmessage.recipient }.
   % else:
-  Error sending email to to ${ clientmessage.recipient }. It can be downloaded as letter instead of an email either as a [PDF](${ letter_to_client.pdf.url_for() }) or a [DOCX](${ letter_to_client.docx.url_for() }) file.
+    % if clientmessage.recipient == "client":
+  Error sending email to to ${ clientmessage.recipient }. It can be downloaded as letter instead of an email either as a **[PDF](${ letter_to_client.pdf.url_for() })** or a **[DOCX](${ letter_to_client.docx.url_for() })** file.
+    % elif clientmessage.recipient == "pbadvocate":
+  Error sending email to to ${ clientmessage.recipient }. It can be downloaded as letter instead of an email either as a **[PDF](${ letter_to_pbadvocate.pdf.url_for() })** or a **[DOCX](${ letter_to_pbadvocate.docx.url_for() })** file.
+    % endif
   % endif
+section: sent
+ga id: email_sent
 ---
 attachment: 
-  name: letter
+  name: letter_to_client
   filename: L${ clientmessage.text }_${ format_date(today(), format='yyyy-MM-dd')}
   docx template file: Letterhead-client.docx
   valid formats: 
@@ -117,15 +127,34 @@ attachment:
     - docx
   variable name: letter_to_client
 ---
+attachment: 
+  name: letter_to_pbadvocate
+  filename: L${ clientmessage.text }_${ format_date(today(), format='yyyy-MM-dd')}
+  docx template file: Letterhead-pbadvocate.docx
+  valid formats: 
+    - pdf
+    - docx
+  variable name: letter_to_pbadvocate
+---
 question: |
   Letter Generated
 subquestion: | 
-  % if email_copy_sent_ok:
+  % if clientmessage.recipient == "client":
+    % if email_copy_sent_ok:
   The letter was generated and sent to the case email. It can also be downloaded as a [PDF](${ letter_to_client.pdf.url_for() }) or a [DOCX](${ letter_to_client.docx.url_for() }) file. 
-  % else: 
+    % else: 
   The letter was generated and *not* sent to the case email. It can be downloaded as a [PDF](${ letter_to_client.pdf.url_for() }) or a [DOCX](${ letter_to_client.docx.url_for() }) file.
+    % endif
+  % elif clientmessage.recipient == "pbadvocate":
+    % if email_copy_sent_ok:
+  The letter was generated and sent to the case email. It can also be downloaded as a [PDF](${ letter_to_pbadvocate.pdf.url_for() }) or a [DOCX](${ letter_to_pbadvocate.docx.url_for() }) file. 
+    % else: 
+  The letter was generated and *not* sent to the case email. It can be downloaded as a [PDF](${ letter_to_pbadvocate.pdf.url_for() }) or a [DOCX](${ letter_to_pbadvocate.docx.url_for() }) file.
+    % endif  
   % endif
 field: LS_send_letter
+section: sent
+ga id: letter_generated
 ---
 template: LetterGenerated
 subject: Letter Generated by Docassemble
@@ -145,6 +174,8 @@ review:
   - Client email: client.email
   - Advocate: advocate.name
   - Advocate email: advocate.email
+  - Pro Bono volunteer: pbadvocate.name
+  - Pro Bono volunteer email: pbadvocate.email
   - Letter Text: clientmessage.text
   - Letter method: clientmessage.letter
   - Language: clientmessage.language
@@ -158,3 +189,5 @@ subquestion: |
 
   ${ value(clientmessage.text) }
 yesno: correct_letter_text
+section: letter
+ga id: confirm_letter

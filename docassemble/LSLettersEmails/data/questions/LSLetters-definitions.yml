@@ -1,4 +1,16 @@
 code: |
+  if client.language == "en":
+    client.title = client.title_en
+  elif client.language == "es":
+    client.title = client.title_es
+  elif client.language == "vi":
+    client.title = client.title_vi
+  elif client.language == "zo":
+    client.title = client.title_zo
+  else:
+    client.title = client.title_en
+---
+code: |
   if client.gender == "male":
     client.title_en = "Mr."
   elif client.gender == "female":  
@@ -16,6 +28,25 @@ code: |
 ---
 code: |
   advocate.salutation = "Dear"
+  pbadvocate.salutation = "Dear"
+---
+code: |
+  if clientmessage.recipient == "client":
+    clientmessage.toline = "${ client.salutation } ${ client.title } ${ client.name.last},"
+  elif clientmessage.recipient == "pbadvocate":
+    clientmessage.toline = "${ pbadvocate.salutation } ${ pbadvocate.title } ${ pbadvocate.name.last},"
+---
+code: |
+  if clientmessage.recipient == "client":
+    clientmessage.recipientname = "${ client.name }"
+  elif clientmessage.recipient == "pbadvocate":
+    clientmessage.recipientname = "${ pbadvocate.name }"
+---
+code: |
+  if clientmessage.sender == "advocate":
+    clientmessage.fromline = "${ advocate.name }"
+  elif clientmessage.sender == "initiator":
+    clientmessage.fromline = "${ initiator.name }"
 ---
 code: |  
   if client.gender == "male": 
@@ -57,3 +88,12 @@ code: |
     client.salutation = "亲爱的"
   else:
     client.salutation = "Dear"
+---
+code: | 
+  if defined(special_legal_problem_code):
+    if special_legel_problem_code == "N/A":
+      LPC = legal_problem_code
+    else: 
+      LPC = special_legal_problem_code
+  else:
+    LPC = legal_problem_code

@@ -27,6 +27,14 @@ fields:
     datatype: email
 ---
 question: |
+  User's Email
+subquestion: |
+  What is the user's email?
+fields:
+  - Email: initiator.email
+    datatype: email
+---
+question: |
   Advocate Email
 subquestion: |
   What is the Advocate's email?
@@ -64,7 +72,16 @@ field: clientmessage.recipient
 buttons: 
   - "${ client.name.full() }, Client": client
   - "${ advocate.name.full() }, advocate": advocate
-  - "Pro Bono Volunteer": pbadvocate
+  - "${ pbadvocate.name.full() }, Pro Bono Volunteer": pbadvocate
+---
+question: |
+  Sender
+subquestion: 
+  Who is the Sender?
+field: clientmessage.sender
+buttons: 
+  - "${ advocate.name.full() }, advocate": advocate
+  - "${ initiator.name.full() }, user": initiator
 ---
 question: | 
   Gender 
@@ -74,7 +91,7 @@ field: client.gender
 choices: 
   - Male: male
   - Female: female
-  - Neutral: neutral
+  - Other: neutral
 ---
 question: | 
   Gender 
@@ -84,7 +101,7 @@ field: advocate.gender
 choices: 
   - Male: male
   - Female: female
-  - Neutral: neutral
+  - Other: neutral
 ---
 question: | 
   Gender 
@@ -94,7 +111,7 @@ field: pbadvocate.gender
 choices: 
   - Male: male
   - Female: female
-  - Neutral: neutral
+  - Other: neutral
 ---
 question: | 
   Language  
