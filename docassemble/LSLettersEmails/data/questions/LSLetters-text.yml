@@ -27,9 +27,9 @@ content: |
 ---
 template: ClosingLetterReconciledwithSpouse
 subject: | 
-  ${ casenumber }: LPC
+  ${ casenumber }: ${ ls_fields.legal_problem_code }
 content: | 
-  Dear ${ client.title_en } ${ client.name.last}, 
+  ${ client.salutation } ${ client.title_en } ${ client.name.last}, 
 
   The volunteer attorney that we found to help you with your legal matter informed us that you have reconciled with your spouse. 
     For this reason, the volunteer attorney has returned you file to us and will no longer represent you in this matter.

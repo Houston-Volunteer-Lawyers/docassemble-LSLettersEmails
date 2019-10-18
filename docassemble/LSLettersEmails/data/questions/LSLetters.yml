@@ -33,8 +33,14 @@ code: |
   LSCase.email = ls_fields.case_email
 
   clientmessage.recipient
-  clientmessage.text
   clientmessage.language
+  clientmessage.text
+  if correct_letter_text == False:
+    undefine(clientmessage.text)
+    undefine(correct_letter_text)
+  
+  # add a review step here where you can see the text of the letter
+  # client address needs to move over. 
   if clientmessage.method == "Email":
     LS_send_email
   elif clientmessage.method == "Letter":
@@ -141,3 +147,9 @@ review:
   - Language: clientmessage.language
   - Letter Recipient: clientmessage.recipient
   - Client Address: client.address
+---
+question: | 
+  Is this the correct letter?
+subquestion: |
+  ${ clientmessage.text }
+yesno: correct_letter_text
