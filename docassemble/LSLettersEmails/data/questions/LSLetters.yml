@@ -35,7 +35,7 @@ code: |
   clientmessage.recipient
   if clientmessage.recipient == "client":
     if defined(client.language):
-      if client.language == "es" || client.language == "en" || client.language == "zo" || client.language == "vi":
+      if client.language == "es" or client.language == "en" or client.language == "zo" or client.language == "vi":
         clientmessage.language = client.language
       else: 
         clientmessage.language
