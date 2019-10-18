@@ -27,7 +27,7 @@ content: |
 ---
 template: ClosingLetterReconciledwithSpouse
 subject: | 
-  ${ casenumber }: ${ ls_fields.legal_problem_code }
+  ${ casenumber }: ${ ls_fields.elements.legal_problem_code }
 content: | 
   ${ client.salutation } ${ client.title_en } ${ client.name.last}, 
 
