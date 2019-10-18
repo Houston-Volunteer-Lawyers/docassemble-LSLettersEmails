@@ -65,9 +65,9 @@ code: |
     email_copy_sent_ok = send_email(to=LSCase, template=LetterGenerated, attachments=[letter_to_pbadvocate.pdf, letter_to_pbadvocate.docx])
   elif clientmessage.recipient == "advocate":
     email_copy_sent_ok = send_email(to=LSCase, template=LetterGenerated, attachments=[letter_to_client.pdf, letter_to_client.docx])
-  # ---
-  # code: |
-  # casenumber = ls_fields['id']
+  ---
+  code: |
+  casenumber = ls_fields.casenumber
   # if ls_fields.case_email.count('@') > 0:
   #   if ls_fields.case_email.count('legalserver.org') > 0: 
   #     if print(ls_fields.case_email[-25]) == "@hvl-demo.legalserver.org":
