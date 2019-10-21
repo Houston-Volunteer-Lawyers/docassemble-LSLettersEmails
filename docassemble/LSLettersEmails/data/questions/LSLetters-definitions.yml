@@ -33,7 +33,7 @@ code: |
 ---
 code: |
   if clientmessage.recipient == "client":
-    clientmessage.toline = client.salutation + " " + client.title + " " + client.name.last + ","
+    clientmessage.toline = client.salutation + ' ' + client.title + ' ' + client.name.last + ','
   elif clientmessage.recipient == "pbadvocate":
     clientmessage.toline = "${ pbadvocate.salutation } ${ pbadvocate.title } ${ pbadvocate.name.last},"
 ---
