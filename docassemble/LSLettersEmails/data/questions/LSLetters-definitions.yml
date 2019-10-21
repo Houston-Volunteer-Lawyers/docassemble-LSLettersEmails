@@ -33,21 +33,21 @@ code: |
 ---
 code: |
   if clientmessage.recipient == "client":
-    clientmessage.toline = "${ client.salutation } ${ client.title } ${ client.name.last},"
+    clientmessage.toline = client.salutation + " " + client.title + " " + client.name.last + ","
   elif clientmessage.recipient == "pbadvocate":
     clientmessage.toline = "${ pbadvocate.salutation } ${ pbadvocate.title } ${ pbadvocate.name.last},"
 ---
 code: |
   if clientmessage.recipient == "client":
-    clientmessage.recipientname = "${ client.name }"
+    clientmessage.recipientname = client.name
   elif clientmessage.recipient == "pbadvocate":
-    clientmessage.recipientname = "${ pbadvocate.name }"
+    clientmessage.recipientname = pbadvocate.name
 ---
 code: |
   if clientmessage.sender == "advocate":
-    clientmessage.fromline = "${ advocate.name }"
+    clientmessage.fromline = advocate.name 
   elif clientmessage.sender == "initiator":
-    clientmessage.fromline = "${ initiator.name }"
+    clientmessage.fromline =  initiator.name
 ---
 code: |  
   if client.gender == "male": 
@@ -93,8 +93,8 @@ code: |
 code: | 
   if defined('ls_fields.special_legal_problem_code'):
     if ls_fields.special_legal_problem_code == "N/A":
-      LPC = "&{ ls_fields.legal_problem_code }"
+      LPC = "${ ls_fields.legal_problem_code }"
     else: 
-      LPC = "&{ ls_fields.special_legal_problem_code }"
+      LPC = "${ ls_fields.special_legal_problem_code }"
   else:
-    LPC = "&{ ls_fields.legal_problem_code }"
+    LPC = "${ ls_fields.legal_problem_code }"

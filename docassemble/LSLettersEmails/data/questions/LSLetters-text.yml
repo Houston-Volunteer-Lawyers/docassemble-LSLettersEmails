@@ -32,6 +32,7 @@ content: |
   % elif client.language == "zo":
   我们为您找到的帮助您处理法律事务的志愿者律师告知我们您已与您的配偶达成和解。为此，该志愿者律师已将您的案卷返给我们，并且不再为您代理此案件。
   % endif
+
   The volunteer attorney that we found to help you with your legal matter informed us that you have reconciled with your spouse. 
     For this reason, the volunteer attorney has returned you file to us and will no longer represent you in this matter.
 
@@ -43,6 +44,7 @@ content: |
   % elif client.language == "zo":
   因此，我们将无法向您提供任何进一步的法律服务，并且不得不撤销您的案卷。
   % endif
+  
   Your file at Houston Volunteer Lawyers has been closed. 
 
   % if client.language == "es":
@@ -52,6 +54,7 @@ content: |
   % elif client.language == "zo":
   如果您在将来需要法律服务，则必须重新申请。
   % endif
+  
   If you need services in the future, you must reapply.
   
   Sincerely,
