@@ -1,83 +1,69 @@
-# code: |
-#   if client.language == "en":
-#     client.title = client.title_en
-#   elif client.language == "es":
-#     client.title = client.title_es
-#   elif client.language == "vi":
-#     client.title = client.title_vi
-#   elif client.language == "zo":
-#     client.title = client.title_zo
-#   else:
-#     client.title = client.title_en
-# ---
-# code: |
-#   if client.gender == "male":
-#     client.title_en = "Mr."
-#   elif client.gender == "female":  
-#     client.title_en = "Ms."
-#   else: 
-#     client.title_en = "Mx"
-# ---
-# code: |  
-#   if client.gender == "male": 
-#     client.title_es = "Sr."
-#   elif client.gender == "female":
-#     client.title_es = "Sra."
-#   else:
-#     client.title_es = ""
-# ---
-# code: |
-#   if client.gender == "male":
-#     client.title_vi = "Ông."
-#   elif client.gender == "female":
-#     client.title_vi = "Bà."
-#   else: 
-#     client.title_vi = ""
-# ---
-# code: |
-#   if client.gender == "male":
-#     client.title_zo = "先生。"
-#   elif client.gender == "female":
-#     client.title_zo = "太太。"
-#   else: 
-#     client.title_zo = ""
-# ---
-# code: |
-#   if client.language == "en":
-#     client.salutation_custom = "Dear"
-#   elif client.language == "es":
-#     if client.gender == "male": 
-#       client.salutation_custom = "Estimado"
-#     elif client.gender == "female":
-#       client.salutation_custom = "Estimada"
-#     else:
-#       client.salutation_custom = "Estimado/a"
-#   elif client.language == "vi":
-#     client.salutation_custom = "Kính gửi"
-#   elif client.language == "zo":
-#     client.salutation_custom = "亲爱的"
-#   else:
-#     client.salutation_custom = "Dear"
-
-# ---
-# code: |
-#   if advocate.gender == "male":
-#     advocate.title = "Mr."
-#   elif advocate.gender == "female":
-#     advocate.title = "Ms."
-#   else: 
-#     advocate.title = "Mx"
+code: |
+  if client.language == "en":
+    client.title = client.title_en
+  elif client.language == "es":
+    client.title = client.title_es
+  elif client.language == "vi":
+    client.title = client.title_vi
+  elif client.language == "zo":
+    client.title = client.title_zo
+  else:
+    client.title = client.title_en
 ---
 code: |
-  advocate.salutation_custom = "Dear"
-  pbadvocate.salutation_custom = "Dear"
-
+  if client.gender == "male":
+    client.title_en = "Mr."
+  elif client.gender == "female":  
+    client.title_en = "Ms."
+  else: 
+    client.title_en = "Mx"
+---
+code: |  
+  if client.gender == "male": 
+    client.title_es = "Sr."
+  elif client.gender == "female":
+    client.title_es = "Sra."
+  else:
+    client.title_es = ""
+---
+code: |
+  if client.gender == "male":
+    client.title_vi = "Ông."
+  elif client.gender == "female":
+    client.title_vi = "Bà."
+  else: 
+    client.title_vi = ""
+---
+code: |
+  if client.gender == "male":
+    client.title_zo = "先生。"
+  elif client.gender == "female":
+    client.title_zo = "太太。"
+  else: 
+    client.title_zo = ""
+---
+code: |
+  if client.language == "en":
+    client.salutation_custom = "Dear"
+  elif client.language == "es":
+    if client.gender == "male": 
+      client.salutation_custom = "Estimado"
+    elif client.gender == "female":
+      client.salutation_custom = "Estimada"
+    else:
+      client.salutation_custom = "Estimado/a"
+  elif client.language == "vi":
+    client.salutation_custom = "Kính gửi"
+  elif client.language == "zo":
+    client.salutation_custom = "亲爱的"
+  else:
+    client.salutation_custom = "Dear"
 ---
 code: |
   if clientmessage.recipient == "client":
-    clientmessage.toline = client.salutation(with_name=True)
+    clientmessage.toline = client.salutation_custom + " " + client.title + " " + client.name.last
   elif clientmessage.recipient == "pbadvocate":
-    clientmessage.toline = pbadvocate.salutation(with_name=True) 
+    clientmessage.toline = "Dear " + pbadvocate(with_name=True) 
 ---
 code: |
   if clientmessage.recipient == "client":

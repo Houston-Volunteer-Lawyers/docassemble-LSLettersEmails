@@ -4,6 +4,9 @@ include:
   - LSLetters-questions.yml
   - LSLetters-definitions.yml
 ---
+imports:
+  .tofromlines.py
+---
 metadata:
   title: |
     Legal Server Letters
