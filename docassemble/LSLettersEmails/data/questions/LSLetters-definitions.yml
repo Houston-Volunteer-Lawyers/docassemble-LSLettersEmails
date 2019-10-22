@@ -18,37 +18,6 @@ code: |
   else: 
     client.title_en = "Mx"
 ---
-code: |
-  if advocate.gender == "male":
-    advocate.title = "Mr."
-  elif advocate.gender == "female":
-    advocate.title = "Ms."
-  else: 
-    advocate.title = "Mx"
----
-code: |
-  advocate.salutation = "Dear"
-  pbadvocate.salutation = "Dear"
-
----
-code: |
-  if clientmessage.recipient == "client":
-    clientmessage.toline = client.salutation + ' ' + client.title + ' ' + client.name.last + ','
-  elif clientmessage.recipient == "pbadvocate":
-    clientmessage.toline = "${ pbadvocate.salutation } ${ pbadvocate.title } ${ pbadvocate.name.last},"
----
-code: |
-  if clientmessage.recipient == "client":
-    clientmessage.recipientname = client.name
-  elif clientmessage.recipient == "pbadvocate":
-    clientmessage.recipientname = pbadvocate.name
----
-code: |
-  if clientmessage.sender == "advocate":
-    clientmessage.fromline = advocate.name 
-  elif clientmessage.sender == "initiator":
-    clientmessage.fromline =  initiator.name
----
 code: |  
   if client.gender == "male": 
     client.title_es = "Sr."
@@ -75,20 +44,53 @@ code: |
 ---
 code: |
   if client.language == "en":
-    client.salutation = "Dear"
+    client.salutation_custom = "Dear"
   elif client.language == "es":
     if client.gender == "male": 
-      client.salutation = "Estimado"
+      client.salutation_custom = "Estimado"
     elif client.gender == "female":
-      client.salutation = "Estimada"
+      client.salutation_custom = "Estimada"
     else:
-      client.saludation = "Estimado/a"
+      client.salutation_custom = "Estimado/a"
   elif client.language == "vi":
-    client.salutation = "Kính gửi"
+    client.salutation_custom = "Kính gửi"
   elif client.language == "zo":
-    client.salutation = "亲爱的"
+    client.salutation_custom = "亲爱的"
   else:
-    client.salutation = "Dear"
+    client.salutation_custom = "Dear"
+
+---
+code: |
+  if advocate.gender == "male":
+    advocate.title = "Mr."
+  elif advocate.gender == "female":
+    advocate.title = "Ms."
+  else: 
+    advocate.title = "Mx"
+---
+code: |
+  advocate.salutation_custom = "Dear"
+  pbadvocate.salutation_custom = "Dear"
+
+---
+code: |
+  if clientmessage.recipient == "client":
+    clientmessage.toline = client.salutation_custom + " " + client.title + " " + client.name.last + ","
+  elif clientmessage.recipient == "pbadvocate":
+    clientmessage.toline = pbadvocate.salutation_custom + " " + pbadvocate.title + " " + pbadvocate.name.last + ","
+---
+code: |
+  if clientmessage.recipient == "client":
+    clientmessage.recipientname = client.name
+  elif clientmessage.recipient == "pbadvocate":
+    clientmessage.recipientname = pbadvocate.name
+---
+code: |
+  if clientmessage.sender == "advocate":
+    clientmessage.fromline = advocate.name 
+  elif clientmessage.sender == "initiator":
+    clientmessage.fromline =  initiator.name
+
 ---
 code: | 
   if defined('ls_fields.special_legal_problem_code'):
