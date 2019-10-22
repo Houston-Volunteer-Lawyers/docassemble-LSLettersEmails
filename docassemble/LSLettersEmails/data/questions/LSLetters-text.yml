@@ -20,7 +20,7 @@ template: ClosingLetterReconciledwithSpouse
 subject: | 
   ${ casenumber } - ${ LPC }
 content: | 
-  ${ clientmessage.toline } 
+  ${ clientmessage.toline }, 
 
   % if client.language == "es":
   El abogado voluntario que encontramos para ayudarlo con su caso nos informó que usted se ha reconciliado con su cónyuge. 

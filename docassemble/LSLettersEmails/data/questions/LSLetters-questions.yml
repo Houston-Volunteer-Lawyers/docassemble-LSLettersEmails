@@ -71,7 +71,7 @@ subquestion:
 field: clientmessage.recipient
 buttons: 
   - "${ client.name.full() }, Client": client
-  - "${ advocate.name.full() }, advocate": advocate
+ # - "${ advocate.name.full() }, advocate": advocate
   - "${ pbadvocate.name.full() }, Pro Bono Volunteer": pbadvocate
 ---
 question: |

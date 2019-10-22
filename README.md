@@ -6,7 +6,11 @@ Letters can be sent to the Client or the Pro Bono Volunteer using either email o
 
 The letterhead template files are saved in the `templates` folder with one for the client and one for the volunteer attorney. The letter to the volunteer could be tweaked to not include all of the details of the client. 
 
-The actual text of the letters is contained as `template` blocks in the `LSLetters-text.yml` file included in this package. The name of the template should be included as a choice in the first block in that document -- `clientmessage.text`. Then below that you can add the new template for that letter. Letters should start with the `to line` and end with the `from line`. There are custom variables for these fields -- `clientmessage.toline` and `clientmessage.fromline` that are based on who the sender/receipient are, their gender, their language, and salutation.  
+The actual text of the letters is contained as `template` blocks in the `LSLetters-text.yml` file included in this package. The name of the template should be included as a choice in the first block in that document -- `clientmessage.text`. Letters should start with the `to line` and end with the `from line`. There are custom variables for these fields -- `clientmessage.toline` and `clientmessage.fromline` that are based on who the sender/receipient are, their gender, their language, and salutation. Plan on overwriting the `clientmessage.text` and the appropriate templates with your organizations content in the YML file that includes this package.  
 
-It is presumed that the language included is English for anyone other than the client. For non-english letters, please see the example. Internal docassemble translation tools are not use to keep the interview language itself as English. 
+A user of this package should create a YML file that has the new `clientmessage.text` choice field with all of their sample letter texts in the same file. That will override the YML file in the package. 
+
+You will also need to use your own letterhead. Letterhead should be saved as `letterhead-pbadvocate.docx` and `letterhead-client.docx`. This should override the HVL versions that are installed as a default into the package. 
+
+It is presumed that the language included is English for anyone other than the client. For non-english letters, please see the example. Internal docassemble translation tools are not use to keep the interview itself in English. 
 
