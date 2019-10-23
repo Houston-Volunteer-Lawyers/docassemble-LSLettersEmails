@@ -23,24 +23,19 @@ content: |
   ${ clientmessage.toline }, 
 
   % if client.language == "es":
-  El abogado voluntario que encontramos para ayudarlo con su caso nos informó que usted se ha reconciliado con su cónyuge. 
-    Por esta razón el abogado voluntario nos ha devuelto su expediente y ya no lo representará en este caso.
+  El abogado voluntario que encontramos para ayudarlo con su caso nos informó que usted se ha reconciliado con su cónyuge. Por esta razón el abogado voluntario nos ha devuelto su expediente y ya no lo representará en este caso.
   % elif client.language == "vi":
-  Luật sư tình nguyện mà chúng tôi tìm được để giúp quý vị trong vấn đề pháp lý đã thông báo cho chúng tôi biết rằng quý vị đã hoà giải 
-    với vợ/chồng của quý vị. Vì lý do này, luật sư tình nguyện đã trả hồ sơ của quý vị lại cho chúng tôi và không còn đại diện 
-    cho quý vị trong vấn đề này nữa. 
+  Luật sư tình nguyện mà chúng tôi tìm được để giúp quý vị trong vấn đề pháp lý đã thông báo cho chúng tôi biết rằng quý vị đã hoà giải với vợ/chồng của quý vị. Vì lý do này, luật sư tình nguyện đã trả hồ sơ của quý vị lại cho chúng tôi và không còn đại diện cho quý vị trong vấn đề này nữa. 
   % elif client.language == "zo":
   我们为您找到的帮助您处理法律事务的志愿者律师告知我们您已与您的配偶达成和解。为此，该志愿者律师已将您的案卷返给我们，并且不再为您代理此案件。
   % endif
 
-  The volunteer attorney that we found to help you with your legal matter informed us that you have reconciled with your spouse. 
-    For this reason, the volunteer attorney has returned you file to us and will no longer represent you in this matter.
+  The volunteer attorney that we found to help you with your legal matter informed us that you have reconciled with your spouse. For this reason, the volunteer attorney has returned you file to us and will no longer represent you in this matter.
 
   % if client.language == "es":
   Su expediente con Los Abogados Voluntarios de Houston ha sido cerrado.   
   % elif client.language == "vi":
-  Điều này có nghĩa là Nhóm Luật Sư Thiện Nguyện Houston sẽ không tìm một luật sư tình nguyện khác để đại diện hoặc tư vấn 
-    cho quý vị trong vấn đề pháp lý này. 
+  Điều này có nghĩa là Nhóm Luật Sư Thiện Nguyện Houston sẽ không tìm một luật sư tình nguyện khác để đại diện hoặc tư vấn cho quý vị trong vấn đề pháp lý này. 
   % elif client.language == "zo":
   因此，我们将无法向您提供任何进一步的法律服务，并且不得不撤销您的案卷。
   % endif
