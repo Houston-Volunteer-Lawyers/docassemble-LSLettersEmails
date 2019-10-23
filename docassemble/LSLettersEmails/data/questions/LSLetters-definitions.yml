@@ -16,7 +16,7 @@ code: |
   elif client.gender == "female":  
     client.title_en = "Ms."
   else: 
-    client.title_en = "Mx"
+    client.title_en = client.name.first
 ---
 code: |  
   if client.gender == "male": 
@@ -24,7 +24,7 @@ code: |
   elif client.gender == "female":
     client.title_es = "Sra."
   else:
-    client.title_es = ""
+    client.title_es = client.name.first
 ---
 code: |
   if client.gender == "male":
@@ -32,7 +32,7 @@ code: |
   elif client.gender == "female":
     client.title_vi = "Bà."
   else: 
-    client.title_vi = ""
+    client.title_vi = client.name.first
 ---
 code: |
   if client.gender == "male":
@@ -40,7 +40,7 @@ code: |
   elif client.gender == "female":
     client.title_zo = "太太。"
   else: 
-    client.title_zo = ""
+    client.title_zo = client.name.first
 ---
  code: |
   if client.language == "en":

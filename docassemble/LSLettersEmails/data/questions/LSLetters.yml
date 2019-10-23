@@ -34,7 +34,6 @@ code: |
   LSCase.name.first = "LegalServer"
   LSCase.name.last = "Case"
   LSCase.email = ls_fields.case_email
-  blankspace = "  "
 
   clientmessage.recipient
   if clientmessage.recipient == "client":
