@@ -5,7 +5,7 @@ include:
   - LSLetters-definitions.yml
 ---
 imports: 
-  .greetings
+  - .greetings
 ---
 metadata:
   title: |
