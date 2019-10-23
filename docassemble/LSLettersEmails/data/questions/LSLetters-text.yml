@@ -54,7 +54,7 @@ content: |
   
   Sincerely,
 
+  [SKIPLINE]
 
-  
 
   ${ clientmessage.fromline }
