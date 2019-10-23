@@ -4,6 +4,9 @@ include:
   - LSLetters-questions.yml
   - LSLetters-definitions.yml
 ---
+imports: 
+  .greetings
+---
 metadata:
   title: |
     Legal Server Letters
@@ -15,7 +18,7 @@ metadata:
   authors:
     - name: Michael Hofrichter
       organization: Houston Volunteer Lawyers
-  revision_date: 2019-10-18
+  revision_date: 2019-10-22
   tags: 
     - "sidebar_assignment_program"
     - "Legalserver"
