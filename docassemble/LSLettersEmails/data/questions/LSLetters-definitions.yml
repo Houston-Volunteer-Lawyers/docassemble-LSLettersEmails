@@ -61,7 +61,7 @@
 ---
 code: |
   if clientmessage.recipient == "client":
-    clientmessage.toline = client.salutation_custom + " " + client.salutation(with_name=True, language='${ client.language }')
+    clientmessage.toline = client.salutation_custom + " " + client.salutation(with_name=True, language=client.language)
   elif clientmessage.recipient == "pbadvocate":
     clientmessage.toline = "Dear " + pbadvocate(with_name=True) 
 ---
