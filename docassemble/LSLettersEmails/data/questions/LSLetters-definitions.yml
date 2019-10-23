@@ -62,7 +62,7 @@
 code: |
   if clientmessage.recipient == "client":
 #   clientmessage.toline = client.salutation_custom + " " + client.title + " " + client.name.last
-    clientmessage.toline = greeting(client,with_punctuation=True,language=client.language)
+    clientmessage.toline = client.greeting(with_punctuation=True,language='es')
   elif clientmessage.recipient == "pbadvocate":
     clientmessage.toline = "Dear " + pbadvocate(with_name=True) 
 ---
