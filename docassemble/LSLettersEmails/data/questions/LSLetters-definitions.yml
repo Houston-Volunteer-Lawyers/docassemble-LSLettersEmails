@@ -1,46 +1,46 @@
-# code: |
-#   if client.language == "en":
-#     client.title = client.title_en
-#   elif client.language == "es":
-#     client.title = client.title_es
-#   elif client.language == "vi":
-#     client.title = client.title_vi
-#   elif client.language == "zo":
-#     client.title = client.title_zo
-#   else:
-#     client.title = client.title_en
-# ---
-# code: |
-#   if client.gender == "male":
-#     client.title_en = "Mr."
-#   elif client.gender == "female":  
-#     client.title_en = "Ms."
-#   else: 
-#     client.title_en = "Mx"
-# ---
-# code: |  
-#   if client.gender == "male": 
-#     client.title_es = "Sr."
-#   elif client.gender == "female":
-#     client.title_es = "Sra."
-#   else:
-#     client.title_es = ""
-# ---
-# code: |
-#   if client.gender == "male":
-#     client.title_vi = "Ông."
-#   elif client.gender == "female":
-#     client.title_vi = "Bà."
-#   else: 
-#     client.title_vi = ""
-# ---
-# code: |
-#   if client.gender == "male":
-#     client.title_zo = "先生。"
-#   elif client.gender == "female":
-#     client.title_zo = "太太。"
-#   else: 
-#     client.title_zo = ""
+code: |
+  if client.language == "en":
+    client.title = client.title_en
+  elif client.language == "es":
+    client.title = client.title_es
+  elif client.language == "vi":
+    client.title = client.title_vi
+  elif client.language == "zo":
+    client.title = client.title_zo
+  else:
+    client.title = client.title_en
+---
+code: |
+  if client.gender == "male":
+    client.title_en = "Mr."
+  elif client.gender == "female":  
+    client.title_en = "Ms."
+  else: 
+    client.title_en = "Mx"
+---
+code: |  
+  if client.gender == "male": 
+    client.title_es = "Sr."
+  elif client.gender == "female":
+    client.title_es = "Sra."
+  else:
+    client.title_es = ""
+---
+code: |
+  if client.gender == "male":
+    client.title_vi = "Ông."
+  elif client.gender == "female":
+    client.title_vi = "Bà."
+  else: 
+    client.title_vi = ""
+---
+code: |
+  if client.gender == "male":
+    client.title_zo = "先生。"
+  elif client.gender == "female":
+    client.title_zo = "太太。"
+  else: 
+    client.title_zo = ""
 ---
  code: |
   if client.language == "en":
@@ -61,7 +61,7 @@
 ---
 code: |
   if clientmessage.recipient == "client":
-    clientmessage.toline = client.salutation_custom + " " + client.salutation(with_name=True, language=client.language)
+    clientmessage.toline = client.salutation_custom + " " + client.title + " " + client.name.last
   elif clientmessage.recipient == "pbadvocate":
     clientmessage.toline = "Dear " + pbadvocate(with_name=True) 
 ---
