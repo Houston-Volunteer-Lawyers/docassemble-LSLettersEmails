@@ -30,7 +30,7 @@ def salutation_es(indiv, with_name=False, with_name_and_punctuation=False):
         salut = 'Sr.'
     else:
         salut = 'Sr.'
-        if with_name or with_name_and_punctuation:
+    if with_name or with_name_and_punctuation:
         if indiv.gender == 'male' or indiv.gender == 'female':
             if with_name_and_punctuation:
                 salut2 = salut + ' ' + indiv.name.last + ':'
@@ -85,22 +85,22 @@ def salutation_zo(indiv, with_name=False, with_name_and_punctuation=False):
         salut2 = salut    
     return salut2    
 
-def greeting(indiv, with_punctuation=False,language=none):
+def greeting(indiv, with_punctuation=False,language=None):
     if indiv.language == 'en':
-        greet = "Dear " + client.salutation(with_name=True,language='en')
+        greet = "Dear " + indiv.salutation(with_name=True,language='en')
     elif indiv.language == 'es':
         if indiv.gender == 'male':
-            greet = "Estimado " + client.salutation(with_name=True,language='es')
+            greet = "Estimado " + indiv.salutation(with_name=True,language='es')
         elif indiv.gender == 'female':
-            greet = "Estimada " + client.salutation(with_name=True,language='es')
+            greet = "Estimada " + indiv.salutation(with_name=True,language='es')
         else: 
-            greet = "Estimado/a" + client.salutation(with_name=True,language='es')
+            greet = "Estimado/a" + indiv.salutation(with_name=True,language='es')
     elif indiv.language == 'vi':
-        greet = "Kính gửi " + client.salutation(with_name=True,language='vi')
+        greet = "Kính gửi " + indiv.salutation(with_name=True,language='vi')
     elif indiv.language == 'zo':
-        greet = "亲爱的 " + client.salutation(with_name=True,language='zo')
+        greet = "亲爱的 " + indiv.salutation(with_name=True,language='zo')
     else:
-        greet = "Dear "  + client.salutation(with_name=True)
+        greet = "Dear "  + indiv.salutation(with_name=True)
     if with_punctuation:
         return greet + ':' 
     return greet
