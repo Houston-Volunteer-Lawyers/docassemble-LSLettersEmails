@@ -1,4 +1,6 @@
 import docassemble.base.functions
+from docassemble.base.util import Individual
+
 def salutation_default(indiv, with_name=False, with_name_and_punctuation=False, language=None):
     return docassemble.base.functions.salutation_default(indiv, 
                                                          with_name=with_name, 
@@ -85,25 +87,25 @@ def salutation_zo(indiv, with_name=False, with_name_and_punctuation=False):
         salut2 = salut    
     return salut2    
 
-def greeting(indiv, with_punctuation=False,language=None):
-    if indiv.language == 'en':
-        greet = "Dear " + indiv.salutation(with_name=True,language='en')
-    elif indiv.language == 'es':
-        if indiv.gender == 'male':
-            greet = "Estimado " + indiv.salutation(with_name=True,language='es')
-        elif indiv.gender == 'female':
-            greet = "Estimada " + indiv.salutation(with_name=True,language='es')
-        else: 
-            greet = "Estimado/a" + indiv.salutation(with_name=True,language='es')
-    elif indiv.language == 'vi':
-        greet = "Kính gửi " + indiv.salutation(with_name=True,language='vi')
-    elif indiv.language == 'zo':
-        greet = "亲爱的 " + indiv.salutation(with_name=True,language='zo')
-    else:
-        greet = "Dear "  + indiv.salutation(with_name=True)
-    if with_punctuation:
-        return greet + ':' 
-    return greet
+# def greeting(indiv, with_punctuation=False, language=None):
+#     if indiv.language == 'en':
+#         greet = "Dear " + indiv.salutation(with_name=True,language='en')
+#     elif indiv.language == 'es':
+#         if indiv.gender == 'male':
+#             greet = "Estimado " + indiv.salutation(with_name=True,language='es')
+#         elif indiv.gender == 'female':
+#             greet = "Estimada " + indiv.salutation(with_name=True,language='es')
+#         else: 
+#             greet = "Estimado/a" + indiv.salutation(with_name=True,language='es')
+#     elif indiv.language == 'vi':
+#         greet = "Kính gửi " + indiv.salutation(with_name=True,language='vi')
+#     elif indiv.language == 'zo':
+#         greet = "亲爱的 " + indiv.salutation(with_name=True,language='zo')
+#     else:
+#         greet = "Dear "  + indiv.salutation(with_name=True)
+#     if with_punctuation:
+#         return greet + ':' 
+#     return greet
 
 docassemble.base.functions.update_language_function('*', 'salutation', salutation_default)
 docassemble.base.functions.update_language_function('en', 'salutation', salutation_en)

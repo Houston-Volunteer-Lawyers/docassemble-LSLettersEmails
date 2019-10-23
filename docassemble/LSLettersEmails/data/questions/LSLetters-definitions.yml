@@ -41,28 +41,28 @@
 #     client.title_zo = "太太。"
 #   else: 
 #     client.title_zo = ""
-# ---
-# code: |
-#   if client.language == "en":
-#     client.salutation_custom = "Dear"
-#   elif client.language == "es":
-#     if client.gender == "male": 
-#       client.salutation_custom = "Estimado"
-#     elif client.gender == "female":
-#       client.salutation_custom = "Estimada"
-#     else:
-#       client.salutation_custom = "Estimado/a"
-#   elif client.language == "vi":
-#     client.salutation_custom = "Kính gửi"
-#   elif client.language == "zo":
-#     client.salutation_custom = "亲爱的"
-#   else:
-#     client.salutation_custom = "Dear"
+ ---
+ code: |
+  if client.language == "en":
+    client.salutation_custom = "Dear"
+  elif client.language == "es":
+    if client.gender == "male": 
+      client.salutation_custom = "Estimado"
+    elif client.gender == "female":
+      client.salutation_custom = "Estimada"
+    else:
+      client.salutation_custom = "Estimado/a"
+  elif client.language == "vi":
+    client.salutation_custom = "Kính gửi"
+  elif client.language == "zo":
+    client.salutation_custom = "亲爱的"
+  else:
+    client.salutation_custom = "Dear"
 ---
 code: |
   if clientmessage.recipient == "client":
-#   clientmessage.toline = client.salutation_custom + " " + client.title + " " + client.name.last
-    clientmessage.toline = client.greeting(with_punctuation=True,language='es')
+    clientmessage.toline = client.salutation_custom + " " + client.salutation(with_name=True, language=client.language)
+#    clientmessage.toline = client.greeting(with_punctuation=True,language='es')
   elif clientmessage.recipient == "pbadvocate":
     clientmessage.toline = "Dear " + pbadvocate(with_name=True) 
 ---
