@@ -77,7 +77,7 @@ subquestion:
   % endif
   Address: ${ client.address.block() }
 
-  % if defined('pbadvocate.name.last')
+  % if defined('pbadvocate.name.last'):
   Volunteer Attorney: ${ pbadvocate }
     % if defined('pbadvocate.email'):
   Email: ${ pbadvocate.email }
