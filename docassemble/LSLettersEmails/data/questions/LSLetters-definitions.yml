@@ -88,7 +88,7 @@ code: |
     LPC = ls_fields.legal_problem_code
 ---
 code: | 
-  if defined(`pbadvcate.name.last`):
+  if defined('pbadvcate.name.last'):
     the_pbadvocate = pbadvocate.name.full
   else:
     the_pbadvocate = "There is no Pro Bono Volunteer"

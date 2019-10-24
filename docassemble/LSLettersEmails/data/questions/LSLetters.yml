@@ -34,7 +34,10 @@ code: |
 
   LSCase.name.first = "LegalServer"
   LSCase.name.last = "Case"
-  LSCase.email = ls_fields.case_email
+  if defined('ls_fields.case_email'):
+    LSCase.email = ls_fields.case_email
+  else:
+    LSCase.email = "no-reply@hvlp.org"
 
   clientmessage.recipient
   if clientmessage.recipient == "client":
