@@ -188,9 +188,9 @@ subquestion: |
   Recipient: { client }
   Email: ${ client.email }
   % endif
-  Subject: ${ value(clientmessage.text).subject }
+  Subject: ${ value(clientmessage.textoption).subject }
 
-  ${ value(clientmessage.text) }
+  ${ value(clientmessage.textoption) }
 yesno: correct_letter_text
 section: letter
 ga id: confirm_letter
@@ -207,10 +207,11 @@ subquestion: |
   % endif
   Subject: ${ value(clientmessage.textoption).subject }
 
-  ${ value(clientmessage.textoption) }
+ 
 fields: 
   - Letter: clientmessage.text
     datatype: area
     rows: 20
+    default: ${ value(clientmessage.textoption) }
 section: letter
 ga id: confirm_letter

@@ -48,11 +48,12 @@ code: |
       clientmessage.language
   else: 
     clientmessage.language = "en"
-  clientmessage.text
+  clientmessage.textoption
   if correct_letter_text == False:
     undefine('clientmessage.text')
     undefine('correct_letter_text')
-  
+    undefine('clientmessage.textoption')
+  clientmessage.text
   # add a review step here where you can see the text of the letter
   # client address needs to move over. 
   if clientmessage.method == "Email":
