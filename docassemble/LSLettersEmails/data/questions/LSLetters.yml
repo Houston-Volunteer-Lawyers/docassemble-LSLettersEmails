@@ -4,11 +4,8 @@ include:
   - LSLetters-questions.yml
   - LSLetters-definitions.yml
 ---
-imports: 
-  - greeting
----
 modules:
-  - greeting
+  - .greeting
 ---
 metadata:
   title: |
