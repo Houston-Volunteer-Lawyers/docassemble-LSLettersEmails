@@ -62,9 +62,9 @@
 # ---
 code: |
   if clientmessage.recipient == "client":
-    clientmessage.toline = ${ greeting(client, with_punctuation=False, language=client.language) }
+    clientmessage.toline = ${ value(greeting(client, with_punctuation=False, language=client.language)) }
   elif clientmessage.recipient == "pbadvocate":
-    clientmessage.toline = ${ greeting(pbadvocate, with_punctuation=False) } 
+    clientmessage.toline = ${ value(greeting(pbadvocate, with_punctuation=False)) } 
 ---
 code: |
   if clientmessage.recipient == "client":
