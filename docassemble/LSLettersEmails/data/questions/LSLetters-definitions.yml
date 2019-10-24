@@ -62,9 +62,9 @@
 # ---
 code: |
   if clientmessage.recipient == "client":
-    clientmessage.toline = ${ value(greeting(client, with_punctuation=False, language=client.language)) }
+    clientmessage.toline = greeting(client, with_punctuation=False, language=client.language)
   elif clientmessage.recipient == "pbadvocate":
-    clientmessage.toline = ${ value(greeting(pbadvocate, with_punctuation=False)) } 
+    clientmessage.toline = greeting(pbadvocate, with_punctuation=False)
 ---
 code: |
   if clientmessage.recipient == "client":
@@ -80,13 +80,16 @@ code: |
 
 ---
 code: | 
-  if defined('ls_fields.special_legal_problem_code'):
-    if ls_fields.special_legal_problem_code == "N/A":
+  if defined('ls_fields.legal_problem_code'):
+    if defined('ls_fields.special_legal_problem_code'):
+      if ls_fields.special_legal_problem_code == "N/A":
+        LPC = ls_fields.legal_problem_code
+      else: 
+        LPC = ls_fields.special_legal_problem_code
+    else:
       LPC = ls_fields.legal_problem_code
-    else: 
-      LPC = ls_fields.special_legal_problem_code
   else:
-    LPC = ls_fields.legal_problem_code
+    LPC = "Legal Problem Code"
 ---
 code: | 
   if defined('pbadvcate.name.last'):
