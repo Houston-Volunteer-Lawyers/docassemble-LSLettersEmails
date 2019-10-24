@@ -63,6 +63,11 @@ subquestion: |
   What is the Pro Bono Advocate's Phone Number?
 fields:
   - Phone: pbadvocate.phone_number
+------
+question: |
+  Case Number
+fields:
+  - Case Number: casenumber
 ---
 question: |
   Recipient
@@ -171,3 +176,38 @@ fields:
   - zip: x.address.zip
   - county: x.address.county
     required: False
+---
+question: | 
+  Is this the correct letter?
+subquestion: |
+  % if clientmessage.recipient == "pbadvocate":
+  Recipient: { pbadvocate }
+  Email: ${ pbadvocate.email }
+  % else: 
+  Recipient: { client }
+  Email: ${ client.email }
+  % endif
+  Subject: ${ value(clientmessage.text).subject }
+
+  ${ value(clientmessage.text) }
+yesno: correct_letter_text
+section: letter
+ga id: confirm_letter
+---
+question: | 
+  Is this the correct letter?
+subquestion: |
+  % if clientmessage.recipient == "pbadvocate":
+  Recipient: { pbadvocate }
+  Email: ${ pbadvocate.email }
+  % else: 
+  Recipient: { client }
+  Email: ${ client.email }
+  % endif
+  Subject: ${ value(clientmessage.textoption).subject }
+
+  ${ value(clientmessage.textoption) }
+area: clientmessage.text
+rows: 20
+section: letter
+ga id: confirm_letter

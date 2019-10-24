@@ -3,7 +3,7 @@ question: |
   Letter  
 subquestion: 
   Which letter to send to the recipient? 
-field: clientmessage.text
+field: clientmessage.textoption
 choices: 
   - Letter1: Letter1
   - Closing due to reconciling with spouse after referral: ClosingLetterReconciledwithSpouse
