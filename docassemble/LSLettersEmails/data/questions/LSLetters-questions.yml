@@ -207,7 +207,9 @@ subquestion: |
   Subject: ${ value(clientmessage.textoption).subject }
 
   ${ value(clientmessage.textoption) }
-area: clientmessage.text
-rows: 20
+fields: 
+  - Letter: clientmessage.text
+    datatype: area
+    rows: 20
 section: letter
 ga id: confirm_letter
