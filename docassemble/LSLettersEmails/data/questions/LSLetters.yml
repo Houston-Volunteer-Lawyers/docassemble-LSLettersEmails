@@ -65,11 +65,11 @@ code: |
 code: |
   # this is for emails generated and sent to recipient
   if clientmessage.recipient == "client":
-    email_sent_ok = send_email(to=client, cc=[LSCase, initiator], template=value(clientmessage.text))
+    email_sent_ok = send_email(to=client, cc=[LSCase, initiator], template=editted_letter)
   elif clientmessage.recipient == "advocate":
-    email_sent_ok = send_email(to=advocate, cc=[LSCase, initiator], template=value(clientmessage.text))
+    email_sent_ok = send_email(to=advocate, cc=[LSCase, initiator], template=editted_letter)
   elif clientmessage.recipient == "pbadvocate":
-    email_sent_ok = send_email(to=pbadvocate, cc=[LSCase, initiator], template=value(clientmessage.text))
+    email_sent_ok = send_email(to=pbadvocate, cc=[LSCase, initiator], template=editted_letter)
 ---
 code: |
   # this is for letters generated and saved in case file
@@ -190,3 +190,9 @@ review:
   - Language: clientmessage.language
   - Letter Recipient: clientmessage.recipient
   - Client Address: client.address
+---
+template: editted_letter
+subject: | 
+  ${ clientmessage.textoption.subject }
+content: | 
+  ${ clientmessage.text }

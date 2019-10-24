@@ -196,13 +196,13 @@ section: letter
 ga id: confirm_letter
 ---
 question: | 
-  Is this the correct letter?
+  Any Edits?
 subquestion: |
   % if clientmessage.recipient == "pbadvocate":
-  Recipient: { pbadvocate }
+  Recipient: ${ pbadvocate }
   Email: ${ pbadvocate.email }
   % else: 
-  Recipient: { client }
+  Recipient: ${ client }
   Email: ${ client.email }
   % endif
   Subject: ${ value(clientmessage.textoption).subject }
