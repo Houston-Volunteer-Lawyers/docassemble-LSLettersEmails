@@ -1,3 +1,7 @@
+---
+imports: 
+  - .greetings
+---
 # code: |
 #   if client.language == "en":
 #     client.title = client.title_en

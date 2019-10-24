@@ -1,4 +1,7 @@
 ---
+imports: 
+  - .greetings
+---
 question: | 
   Letter  
 subquestion: 
