@@ -23,8 +23,9 @@ metadata:
     - "sidebar_assignment_program"
     - "Legalserver"
     - "Staff"
-    - "everyone"
     - "Everyone"
+    - "Letters"
+    - "Emails"
 ---
 mandatory: True
 code: |
@@ -57,14 +58,16 @@ code: |
   all_done
 ---
 code: |
+  # this is for emails generated and sent to recipient
   if clientmessage.recipient == "client":
-    email_sent_ok = send_email(to=client, cc=LSCase, template=value(clientmessage.text))
+    email_sent_ok = send_email(to=client, cc=[LSCase, initiator], template=value(clientmessage.text))
   elif clientmessage.recipient == "advocate":
-    email_sent_ok = send_email(to=advocate, cc=LSCase, template=value(clientmessage.text))
+    email_sent_ok = send_email(to=advocate, cc=[LSCase, initiator], template=value(clientmessage.text))
   elif clientmessage.recipient == "pbadvocate":
-    email_sent_ok = send_email(to=pbadvocate, cc=LSCase, template=value(clientmessage.text))
+    email_sent_ok = send_email(to=pbadvocate, cc=[LSCase, initiator], template=value(clientmessage.text))
 ---
 code: |
+  # this is for letters generated and saved in case file
   if clientmessage.recipient == "client": 
     email_copy_sent_ok = send_email(to=LSCase, template=LetterGenerated, attachments=[letter_to_client.pdf, letter_to_client.docx])
   elif clientmessage.recipient == "pbadvocate": 
@@ -114,9 +117,15 @@ field: LS_send_email
 subquestion: | 
   % if email_sent_ok:
   Email sent to ${ clientmessage.recipient }.
-  % else:
+  % elif email_copy_sent_ok:
     % if clientmessage.recipient == "client":
-  Error sending email to to ${ clientmessage.recipient }. It can be downloaded as letter instead of an email either as a **[PDF](${ letter_to_client.pdf.url_for() })** or a **[DOCX](${ letter_to_client.docx.url_for() })** file.
+  Error sending email to to ${ clientmessage.recipient }. It can be downloaded as letter instead of an email either as a **[PDF](${ letter_to_client.pdf.url_for() })** or a **[DOCX](${ letter_to_client.docx.url_for() })** file. The letters were sent to the case notes.
+    % elif clientmessage.recipient == "pbadvocate":
+  Error sending email to to ${ clientmessage.recipient }. It can be downloaded as letter instead of an email either as a **[PDF](${ letter_to_pbadvocate.pdf.url_for() })** or a **[DOCX](${ letter_to_pbadvocate.docx.url_for() })** file. The letters were sent to the case notes.
+    % endif
+  % else: 
+    % if clientmessage.recipient == "client":
+  Error sending email to to ${ clientmessage.recipient }. It can be downloaded as letter instead of an email either as a **[PDF](${ letter_to_client.pdf.url_for() })** or a **[DOCX](${ letter_to_client.docx.url_for() })** file. 
     % elif clientmessage.recipient == "pbadvocate":
   Error sending email to to ${ clientmessage.recipient }. It can be downloaded as letter instead of an email either as a **[PDF](${ letter_to_pbadvocate.pdf.url_for() })** or a **[DOCX](${ letter_to_pbadvocate.docx.url_for() })** file.
     % endif
@@ -191,6 +200,13 @@ review:
 question: | 
   Is this the correct letter?
 subquestion: |
+  % if clientmessage.recipient == "pbadvocate":
+  Recipient: { pbadvocate }
+  Email: ${ pbadvocate.email }
+  % else: 
+  Recipient: { client }
+  Email: ${ client.email }
+  % endif
   Subject: ${ value(clientmessage.text).subject }
 
   ${ value(clientmessage.text) }

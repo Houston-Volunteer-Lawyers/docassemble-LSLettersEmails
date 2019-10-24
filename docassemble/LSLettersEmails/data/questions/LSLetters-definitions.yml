@@ -1,69 +1,69 @@
-code: |
-  if client.language == "en":
-    client.title = client.title_en
-  elif client.language == "es":
-    client.title = client.title_es
-  elif client.language == "vi":
-    client.title = client.title_vi
-  elif client.language == "zo":
-    client.title = client.title_zo
-  else:
-    client.title = client.title_en
----
-code: |
-  if client.gender == "male":
-    client.title_en = "Mr."
-  elif client.gender == "female":  
-    client.title_en = "Ms."
-  else: 
-    client.title_en = client.name.first
----
-code: |  
-  if client.gender == "male": 
-    client.title_es = "Sr."
-  elif client.gender == "female":
-    client.title_es = "Sra."
-  else:
-    client.title_es = client.name.first
----
-code: |
-  if client.gender == "male":
-    client.title_vi = "Ông."
-  elif client.gender == "female":
-    client.title_vi = "Bà."
-  else: 
-    client.title_vi = client.name.first
----
-code: |
-  if client.gender == "male":
-    client.title_zo = "先生。"
-  elif client.gender == "female":
-    client.title_zo = "太太。"
-  else: 
-    client.title_zo = client.name.first
----
- code: |
-  if client.language == "en":
-    client.salutation_custom = "Dear"
-  elif client.language == "es":
-    if client.gender == "male": 
-      client.salutation_custom = "Estimado"
-    elif client.gender == "female":
-      client.salutation_custom = "Estimada"
-    else:
-      client.salutation_custom = "Estimado/a"
-  elif client.language == "vi":
-    client.salutation_custom = "Kính gửi"
-  elif client.language == "zo":
-    client.salutation_custom = "亲爱的"
-  else:
-    client.salutation_custom = "Dear"
----
+# code: |
+#   if client.language == "en":
+#     client.title = client.title_en
+#   elif client.language == "es":
+#     client.title = client.title_es
+#   elif client.language == "vi":
+#     client.title = client.title_vi
+#   elif client.language == "zo":
+#     client.title = client.title_zo
+#   else:
+#     client.title = client.title_en
+# ---
+# code: |
+#   if client.gender == "male":
+#     client.title_en = "Mr."
+#   elif client.gender == "female":  
+#     client.title_en = "Ms."
+#   else: 
+#     client.title_en = client.name.first
+# ---
+# code: |  
+#   if client.gender == "male": 
+#     client.title_es = "Sr."
+#   elif client.gender == "female":
+#     client.title_es = "Sra."
+#   else:
+#     client.title_es = client.name.first
+# ---
+# code: |
+#   if client.gender == "male":
+#     client.title_vi = "Ông."
+#   elif client.gender == "female":
+#     client.title_vi = "Bà."
+#   else: 
+#     client.title_vi = client.name.first
+# ---
+# code: |
+#   if client.gender == "male":
+#     client.title_zo = "先生。"
+#   elif client.gender == "female":
+#     client.title_zo = "太太。"
+#   else: 
+#     client.title_zo = client.name.first
+# ---
+#  code: |
+#   if client.language == "en":
+#     client.salutation_custom = "Dear"
+#   elif client.language == "es":
+#     if client.gender == "male": 
+#       client.salutation_custom = "Estimado"
+#     elif client.gender == "female":
+#       client.salutation_custom = "Estimada"
+#     else:
+#       client.salutation_custom = "Estimado/a"
+#   elif client.language == "vi":
+#     client.salutation_custom = "Kính gửi"
+#   elif client.language == "zo":
+#     client.salutation_custom = "亲爱的"
+#   else:
+#     client.salutation_custom = "Dear"
+# ---
 code: |
   if clientmessage.recipient == "client":
-    clientmessage.toline = client.salutation_custom + " " + client.title + " " + client.name.last
+    clientmessage.toline = greeting(client, with_punctuation=False, language=client.language)
   elif clientmessage.recipient == "pbadvocate":
-    clientmessage.toline = "Dear " + pbadvocate(with_name=True) 
+    clientmessage.toline = greeting(pbadvocate, with_punctuation=False) 
 ---
 code: |
   if clientmessage.recipient == "client":
@@ -86,3 +86,9 @@ code: |
       LPC = ls_fields.special_legal_problem_code
   else:
     LPC = ls_fields.legal_problem_code
+---
+code: | 
+  if defined(`pbadvcate.name.last`):
+    the_pbadvocate = pbadvocate.name.full
+  else:
+    the_pbadvocate = "There is no Pro Bono Volunteer"

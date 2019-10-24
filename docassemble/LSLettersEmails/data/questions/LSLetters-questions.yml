@@ -68,11 +68,29 @@ question: |
   Recipient
 subquestion: 
   Who is the recipient?
+
+  Client: ${ client }
+  % if defined('client.email'):
+  Email: ${ client.email }
+  % else: 
+  Email: No Client email address
+  % endif
+  Address: ${ client.address.block() }
+
+  % if defined('pbadvocate.name.last')
+  Volunteer Attorney: ${ pbadvocate }
+    % if defined('pbadvocate.email'):
+  Email: ${ pbadvocate.email }
+    % else: 
+  Email: No volunteer email address
+    % endif
+  Address: ${ pbadvocate.address.block() }
+  % endif
 field: clientmessage.recipient
 buttons: 
   - "${ client.name.full() }, Client": client
  # - "${ advocate.name.full() }, advocate": advocate
-  - "${ pbadvocate.name.full() }, Pro Bono Volunteer": pbadvocate
+  - "${ the_pbadvocate }, Pro Bono Volunteer": pbadvocate
 ---
 question: |
   Sender
@@ -118,6 +136,18 @@ question: |
 subquestion: 
   What language should the letter be in?  
 field: clientmessage.language
+choices: 
+  - English: en
+    default: True
+  - Spanish: es
+  - Chinese: zo
+  - Vietnamese: vi
+---
+question: | 
+  Language  
+subquestion: 
+  What language does the client speak?  
+field: client.language
 choices: 
   - English: en
     default: True
