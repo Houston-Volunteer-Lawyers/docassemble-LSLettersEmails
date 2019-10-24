@@ -102,6 +102,7 @@ docassemble.base.functions.update_language_function('es', 'salutation', salutati
 docassemble.base.functions.update_language_function('vi', 'salutation', salutation_vi)
 docassemble.base.functions.update_language_function('zo', 'salutation', salutation_zo)
 docassemble.base.functions.update_language_function('*', 'greeting', greeting_default)
+docassemble.base.functions.update_language_function('en', 'greeting', greeting_default)
 docassemble.base.functions.update_language_function('es', 'greeting', greeting_es)
 docassemble.base.functions.update_language_function('vi', 'greeting', greeting_vi)
 docassemble.base.functions.update_language_function('zo', 'greeting', greeting_zo)
