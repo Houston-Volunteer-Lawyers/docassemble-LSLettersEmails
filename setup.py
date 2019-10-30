@@ -43,7 +43,7 @@ def find_package_data(where='.', package='', exclude=standard_exclude, exclude_d
     return out
 
 setup(name='docassemble.LSLettersEmails',
-      version='0.2.16',
+      version='0.2.17',
       description=('LS Letters'),
       long_description='fixed message vs clientmessage',
       long_description_content_type='text/markdown',
@@ -53,7 +53,7 @@ setup(name='docassemble.LSLettersEmails',
       url='https://docassemble.org',
       packages=find_packages(),
       namespace_packages=['docassemble'],
-      install_requires=[],
+      install_requires=['docassemble.gbls', 'usaddress', 'nameparser'],
       zip_safe=False,
       package_data=find_package_data(where='docassemble/LSLettersEmails/', package='docassemble.LSLettersEmails'),
      )
