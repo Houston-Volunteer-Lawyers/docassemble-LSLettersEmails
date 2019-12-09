@@ -1,8 +1,8 @@
 include: 
   - docassemble.gbls:basic-questions-gbls.yml
-  - LSLetters-text.yml
-  - LSLetters-questions.yml
-  - LSLetters-definitions.yml
+  - docassemble.LSLettersEmails:LSLetters-text.yml
+  - docassemble.LSLettersEmails:LSLetters-questions.yml
+  - docassemble.LSLettersEmails:LSLetters-definitions.yml
 ---
 modules:
   - .greeting
