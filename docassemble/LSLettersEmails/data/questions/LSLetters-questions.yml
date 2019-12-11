@@ -211,9 +211,7 @@ subquestion: |
   Email: ${ client.email }
   % endif
 
-  Subject: ${ value(clientmessage.textoption).subject }
-
- 
+  Subject: ${ value(clientmessage.textoption).subject } 
 fields: 
   - no label: clientmessage.text
     datatype: area
