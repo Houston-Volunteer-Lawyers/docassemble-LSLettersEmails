@@ -81,9 +81,11 @@ code: |
 code: | 
   if defined('ls_fields.legal_problem_code'):
     legal_problem_code_num = int(ls_fields.legal_problem_code[0:2])
-    special_legal_problem_code_num = int(ls_fields.special_legal_problem_code[0:3])
     if defined('ls_fields.special_legal_problem_code'):
-      special_legal_problem_code_num = int(ls_fields.special_legal_problem_code[0:3])
+      if ls_fields.special_legal_problem_code[4] == " ":
+        special_legal_problem_code_num = int(ls_fields.special_legal_problem_code[0:3])
+      else:
+        special_legal_problem_code_num = int(ls_fields.special_legal_problem_code[0:4])
       if ls_fields.special_legal_problem_code == "N/A":
         LPC = ls_fields.legal_problem_code
       else: 

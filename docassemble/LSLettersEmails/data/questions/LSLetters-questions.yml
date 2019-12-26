@@ -273,3 +273,9 @@ field: LS_send_letter
 section: sent
 ga id: letter_generated
 ---
+question: |
+  Special Problem Code
+subquestion: |
+  What is the special problem code of the case? 
+field: ls_fields.special_legal_problem_code
+---
