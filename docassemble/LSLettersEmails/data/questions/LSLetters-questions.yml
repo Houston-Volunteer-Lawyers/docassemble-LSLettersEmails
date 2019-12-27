@@ -249,6 +249,8 @@ subquestion: |
     % elif clientmessage.recipient == "pbadvocate":
   Error sending email to to ${ clientmessage.recipient }. It can be downloaded as letter instead of an email either as a **[PDF](${ letter_to_pbadvocate.pdf.url_for() })** or a **[DOCX](${ letter_to_pbadvocate.docx.url_for() })** file.
     % endif
+
+  Note: PDF versions of the letter will not properly print an envelope from Google Chrome. It must be opened in your local PDF software or in Microsoft Word to properly print an envelope. 
   % endif
 section: sent
 ga id: email_sent
@@ -269,6 +271,8 @@ subquestion: |
   The letter was generated and *not* sent to the case email. It can be downloaded as a [PDF](${ letter_to_pbadvocate.pdf.url_for() }) or a [DOCX](${ letter_to_pbadvocate.docx.url_for() }) file.
     % endif  
   % endif
+
+  Note: PDF versions of the letter will not properly print an envelope from Google Chrome. It must be opened in your local PDF software or in Microsoft Word to properly print an envelope. 
 field: LS_send_letter
 section: sent
 ga id: letter_generated
