@@ -4,9 +4,9 @@ from docassemble.base.util import Individual
 __all__ = ['greeting']
 
 def salutation_default(indiv, with_name=False, with_name_and_punctuation=False, language=None):
-    return docassemble.base.functions.salutation(indiv,
-                                                 with_name=with_name,
-                                                 with_name_and_punctuation=with_name_and_punctuation)
+    return docassemble.base.functions.salutation_default(indiv,
+                                                         with_name=with_name,
+                                                         with_name_and_punctuation=with_name_and_punctuation)
 
 def salutation_es(indiv, with_name=False, with_name_and_punctuation=False, language=None):
     if indiv.gender == 'female':

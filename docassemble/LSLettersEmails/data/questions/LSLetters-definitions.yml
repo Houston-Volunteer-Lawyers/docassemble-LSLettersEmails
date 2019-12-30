@@ -96,7 +96,7 @@ code: |
     LPC = "Legal Problem Code"
 ---
 code: | 
-  if defined('pbadvcate.name.last'):
+  if defined('pbadvocate.name.last'):
     the_pbadvocate = pbadvocate.name.full
   else:
     the_pbadvocate = "There is no Pro Bono Volunteer"
