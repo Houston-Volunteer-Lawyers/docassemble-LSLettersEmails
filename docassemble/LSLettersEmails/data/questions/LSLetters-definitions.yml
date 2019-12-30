@@ -64,7 +64,7 @@ code: |
   if clientmessage.recipient == "client":
     clientmessage.toline = greeting(client, with_punctuation=False, language=client.language)
   elif clientmessage.recipient == "pbadvocate":
-    if defined('pbadvocate.salutation')
+    if defined('pbadvocate.salutation'):
       clientmessage.toline = "Dear " + pbadvocate.salutation + " " + pbadvocate.name.last
     else: 
       if pbadvocate.gender == "male":
