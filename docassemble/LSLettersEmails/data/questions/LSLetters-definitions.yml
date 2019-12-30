@@ -97,7 +97,7 @@ code: |
 ---
 code: | 
   if defined('pbadvocate.name.last'):
-    the_pbadvocate = pbadvocate.name.full
+    the_pbadvocate = pbadvocate.name
   else:
     the_pbadvocate = "There is no Pro Bono Volunteer"
 ---
