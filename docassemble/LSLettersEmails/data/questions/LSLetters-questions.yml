@@ -272,6 +272,8 @@ subquestion: |
     % endif  
   % endif
 
+  Any attachments included with the mailed letter need to be referenced in a separate attachment/case note. 
+  
   Note: PDF versions of the letter will not properly print an envelope from Google Chrome. It must be opened in your local PDF software or in Microsoft Word to properly print an envelope. 
 field: LS_send_letter
 section: sent
@@ -287,7 +289,7 @@ question: |
   Attachments
 fields: 
   - Do you want to add any attachments to this email?: attachments_yes
-    datatype: yesno
+    datatype: yesnoradio
   - Files to Attach: email_attachment_files
     datatype: files
     show if: attachments_yes
