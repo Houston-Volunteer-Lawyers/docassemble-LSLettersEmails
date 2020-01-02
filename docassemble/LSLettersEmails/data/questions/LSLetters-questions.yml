@@ -283,3 +283,11 @@ subquestion: |
   What is the special problem code of the case? 
 field: ls_fields.special_legal_problem_code
 ---
+question: |
+  Attachments
+fields: 
+  - Do you want to add any attachments to this email?: attachments_yes
+    datatype: yesno
+  - Files to Attach: email_attachment_files
+    datatype: files
+    show if: attachments_yes
