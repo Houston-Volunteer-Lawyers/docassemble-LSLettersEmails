@@ -81,7 +81,6 @@ subquestion: |
   % else: 
   Email: No Client email address
   % endif
-  Address: ${ client.address.block() }
 
   % if defined('pbadvocate.name.last'):
   Volunteer Attorney: ${ pbadvocate }
@@ -90,7 +89,6 @@ subquestion: |
     % else: 
   Email: No volunteer email address
     % endif
-  Address: ${ pbadvocate.address.block() }
   % endif
 field: clientmessage.recipient
 buttons: 
