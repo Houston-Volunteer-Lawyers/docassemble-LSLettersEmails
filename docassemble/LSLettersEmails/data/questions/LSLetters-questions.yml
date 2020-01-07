@@ -31,6 +31,7 @@ question: |
   ${capitalize(x.possessive('phone number'))}
 fields:
   - phone number: x.phone_number
+    validate: phone_number_is_valid
 ---
 # question: |
 #   Client Email
