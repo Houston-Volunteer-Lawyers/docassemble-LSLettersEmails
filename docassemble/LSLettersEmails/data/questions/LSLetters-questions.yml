@@ -76,6 +76,7 @@ subquestion: |
   Who is the recipient?
 
   Client: ${ client }
+
   % if defined('client.email'):
   Email: ${ client.email }
   % else: 
@@ -84,6 +85,7 @@ subquestion: |
 
   % if defined('pbadvocate.name.last'):
   Volunteer Attorney: ${ pbadvocate }
+  
     % if defined('pbadvocate.email'):
   Email: ${ pbadvocate.email }
     % else: 
