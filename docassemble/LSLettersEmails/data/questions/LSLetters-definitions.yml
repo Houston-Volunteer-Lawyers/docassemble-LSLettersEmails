@@ -74,7 +74,7 @@ code: |
       pbadvocate.salutation_text = "Ms."
     else: 
       pbadvocate.salutation_text = pbadvocate.name.first
-    clientmessage.toline = "Dear " + pbadvocate.salutation_text + " " + pbadvocate.name.last
+    clientmessage.toline = "Dear " + capitalize(pbadvocate.salutation_text) + " " + capitalize(pbadvocate.name.last)
 ---
 code: |
   if clientmessage.recipient == "client":
