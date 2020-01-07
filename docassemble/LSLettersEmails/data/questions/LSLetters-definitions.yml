@@ -60,20 +60,21 @@
 #   else:
 #     client.salutation_custom = "Dear"
 # ---
+#    if defined('pbadvocate.salutation'):
+#      clientmessage.toline = "Dear " + pbadvocate.salutation + " " + pbadvocate.name.last
+#    else: 
+# these 3 lines above were previously after what is now line 70.
 code: |
   if clientmessage.recipient == "client":
     clientmessage.toline = greeting(client, with_punctuation=False, language=client.language)
   elif clientmessage.recipient == "pbadvocate":
-#    if defined('pbadvocate.salutation'):
-#      clientmessage.toline = "Dear " + pbadvocate.salutation + " " + pbadvocate.name.last
-#    else: 
-      if pbadvocate.gender == "male":
-        pbadvocate.salutation_text = "Mr."
-      elif pbadvocate.gender == "female":  
-        pbadvocate.salutation_text = "Ms."
-      else: 
-        pbadvocate.salutation_text = pbadvocate.name.first
-      clientmessage.toline = "Dear " + pbadvocate.salutation_text + " " + pbadvocate.name.last
+    if pbadvocate.gender == "male":
+      pbadvocate.salutation_text = "Mr."
+    elif pbadvocate.gender == "female":  
+      pbadvocate.salutation_text = "Ms."
+    else: 
+      pbadvocate.salutation_text = pbadvocate.name.first
+    clientmessage.toline = "Dear " + pbadvocate.salutation_text + " " + pbadvocate.name.last
 ---
 code: |
   if clientmessage.recipient == "client":

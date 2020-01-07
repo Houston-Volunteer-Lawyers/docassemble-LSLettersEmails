@@ -43,7 +43,7 @@ def find_package_data(where='.', package='', exclude=standard_exclude, exclude_d
     return out
 
 setup(name='docassemble.LSLettersEmails',
-      version='0.3.4',
+      version='0.3.5',
       description=('LS Letters'),
       long_description='fixed message vs clientmessage',
       long_description_content_type='text/markdown',
