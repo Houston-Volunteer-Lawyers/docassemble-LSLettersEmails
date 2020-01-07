@@ -19,52 +19,72 @@ need:
 #   - Email: case_email
 #     datatype: email
 ---
+generic object: Individual
 question: |
-  Client Email
-subquestion: |
-  What is the client's email?
+  ${capitalize(x.possessive('email address'))}
 fields:
-  - Email: client.email
+  - Email: x.email
     datatype: email
 ---
+generic object: Individual
 question: |
-  User's Email
-subquestion: |
-  What is the user's email?
+  ${capitalize(x.possessive('phone number'))}
 fields:
-  - Email: initiator.email
-    datatype: email
+  - phone number: x.phone_number
 ---
-question: |
-  Advocate Email
-subquestion: |
-  What is the Advocate's email?
-fields:
-  - Email: advocate.email
-    datatype: email
----
-question: |
-  Pro Bono Advocate Email
-subquestion: |
-  What is the Pro Bono Advocate's email?
-fields:
-  - Email: pbadvocate.email
-    datatype: email
----
-question: |
-  Pro Bono Advocate Firm
-subquestion: |
-  What is the Pro Bono Advocate's firm?
-fields:
-  - Firm: pbadvocate.firm
----
-question: |
-  Pro Bono Advocate Phone
-subquestion: |
-  What is the Pro Bono Advocate's Phone Number?
-fields:
-  - Phone: pbadvocate.phone_number
----
+# question: |
+#   Client Email
+# subquestion: |
+#   What is the client's email?
+# fields:
+#   - Email: client.email
+#     datatype: email
+# ---
+# question: |
+#   User's Email
+# subquestion: |
+#   What is the user's email?
+# fields:
+#   - Email: initiator.email
+#     datatype: email
+# ---
+# question: |
+#   Advocate Email
+# subquestion: |
+#   What is the Advocate's email?
+# fields:
+#   - Email: advocate.email
+#     datatype: email
+# ---
+# question: |
+#   Pro Bono Advocate Email
+# subquestion: |
+#   What is the Pro Bono Advocate's email?
+# fields:
+#   - Email: pbadvocate.email
+#     datatype: email
+# ---
+# question: |
+#   Pro Bono Advocate Firm
+# subquestion: |
+#   What is the Pro Bono Advocate's firm?
+# fields:
+#   - Firm: pbadvocate.firm
+# ---
+# question: |
+#   Pro Bono Advocate Phone
+# subquestion: |
+#   What is the Pro Bono Advocate's Phone Number?
+# fields:
+#   - Phone: pbadvocate.phone_number
+# ---
+# question: |
+#   Pro Bono Advocate Phone
+# subquestion: |
+#   What is the Pro Bono Advocate's Phone Number?
+# fields:
+#   - Phone: advocate.phone_number
+# ---
 question: |
   Case Number
 fields:
@@ -85,7 +105,7 @@ subquestion: |
 
   % if defined('pbadvocate.name.last'):
   Volunteer Attorney: ${ pbadvocate }
-  
+
     % if defined('pbadvocate.email'):
   Email: ${ pbadvocate.email }
     % else: 
