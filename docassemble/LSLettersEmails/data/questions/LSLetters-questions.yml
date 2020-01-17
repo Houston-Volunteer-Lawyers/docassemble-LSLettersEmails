@@ -242,9 +242,9 @@ subquestion: |
     % endif
   % else:
     % if email_copy_sent_ok:
-  The letter was generated and sent to the case email. It can also be downloaded as a [PDF](${ clientmessage.letterhead.pdf.url_for() }) or a [DOCX](${ clientmessage_letterhead.docx.url_for() }) file. 
+  The letter was generated and sent to the case email. It can also be downloaded as a [PDF](${ letterhead_choice.pdf.url_for() }) or a [DOCX](${ letterhead_choice.docx.url_for() }) file. 
     % else: 
-  The letter was generated and *not* sent to the case email. It can be downloaded as a [PDF](${ clientmessage_letterhead.pdf.url_for() }) or a [DOCX](${ clientmessage_letterhead.docx.url_for() }) file.
+  The letter was generated and *not* sent to the case email. It can be downloaded as a [PDF](${ letterhead_choice.pdf.url_for() }) or a [DOCX](${ letterhead_choice.docx.url_for() }) file.
     % endif  
   % endif
 
