@@ -3,7 +3,7 @@ question: |
   Letterhead
 subquestion: |
   What letterhead do you want to use?
-field: clientmessage.letterhead
+field: clientmessage_letterhead
 choices: 
   - Default: default
     default: true
@@ -12,7 +12,7 @@ choices:
 ---
 code: |
   # this is for letters generated, printed, and saved in case file
-  if clientmessage.letterhead == "default":
+  if clientmessage_letterhead == "default":
     if clientmessage.recipient == "client": 
       email_copy_sent_ok = send_email(to=LSCase, template=LetterGenerated, attachments=[letter_to_client.pdf, letter_to_client.docx])
     elif clientmessage.recipient == "pbadvocate": 
@@ -20,7 +20,7 @@ code: |
     elif clientmessage.recipient == "advocate":
       email_copy_sent_ok = send_email(to=LSCase, template=LetterGenerated, attachments=[letter_to_client.pdf, letter_to_client.docx])
   else:
-    email_copy_sent_ok = send_email(to=LSCase, template=LetterGenerated, attachments=[clientmessage.letterhead.pdf, clientmessage.letterhead.docx])
+    email_copy_sent_ok = send_email(to=LSCase, template=LetterGenerated, attachments=[clientmessage_letterhead.pdf, clientmessage_letterhead.docx])
   
 ---
 attachment: 
