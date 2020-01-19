@@ -1,4 +1,33 @@
 ---
+question: |
+  Letterhead
+subquestion: |
+  What letterhead do you want to use?
+field: clientmessage_letterhead
+choices: 
+  - Default: default
+    default: true
+  - Advocate: letter_to_pbadvocate
+  - Client: letter_to_client
+---
+attachment: 
+  name: letter_to_client
+  filename: L${ clientmessage.textoption }_${ format_date(today(), format='yyyy-MM-dd')}
+  docx template file: Letterhead-client.docx
+  valid formats: 
+    - pdf
+    - docx
+  variable name: letter_to_client
+---
+attachment: 
+  name: letter_to_pbadvocate
+  filename: L${ clientmessage.textoption }_${ format_date(today(), format='yyyy-MM-dd')}
+  docx template file: Letterhead-pbadvocate.docx
+  valid formats: 
+    - pdf
+    - docx
+  variable name: letter_to_pbadvocate
+---
 question: | 
   Letter  
 subquestion: 
