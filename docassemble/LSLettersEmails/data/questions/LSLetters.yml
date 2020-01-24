@@ -1,7 +1,7 @@
 include: 
   - docassemble.gbls:basic-questions-gbls.yml
-  - LSLetters-customize.yml
-  - LSLetters-questions.yml
+  - docassemble.LSLettersEmails:LSLetters-customize.yml
+  - docassemble.LSLettersEmails:LSLetters-questions.yml
 ---
 modules:
   - .greeting
