@@ -7,8 +7,20 @@ field: clientmessage_letterhead
 choices: 
   - Default: default
     default: true
-  - Advocate: letter_to_pbadvocate
+  - Pro Bono Advocate: letter_to_pbadvocate
   - Client: letter_to_client
+---
+code: |
+  if clientmessage_letterhead == "default":
+    if clientmessage.recipient == "client" or clientmessage.recipient == "advocate":
+      letterhead_choice = letter_to_client
+    elif clientmessage.recipient == "pbadvocate":
+      letterhead_choice = letter_to_pbadvocate
+  elif clientmessage_letterhead == "letter_to_pbadvocate":
+    letterhead_choice = letter_to_pbadvocate
+  elif clientmesage_letterhead == "letter_to_client":
+    letterhead_choice = letter_to_client
+# the code above needs to specifically identify which attachment variables are to be used with the letterhead options. The else option will not work.
 ---
 attachment: 
   name: letter_to_client

@@ -1,7 +1,7 @@
 include: 
   - docassemble.gbls:basic-questions-gbls.yml
-  - docassemble.LSLettersEmails:LSLetters-customize.yml
-  - docassemble.LSLettersEmails:LSLetters-questions.yml
+  - LSLetters-customize.yml
+  - LSLetters-questions.yml
 ---
 modules:
   - .greeting
@@ -175,20 +175,6 @@ code: |
 code: |
   if defined('ls_fields.casenumber'):
     casenumber = ls_fields.casenumber
----
-
-code: |
-  if clientmessage_letterhead == "default":
-    if clientmessage.recipient == "client" or clientmessage.recipient == "advocate":
-      letterhead_choice = letter_to_client
-    elif clientmessage.recipient == "pbadvocate":
-      letterhead_choice = letter_to_pbadvocate
-  else: 
-    letterhead_choice = clientmessage_letterhead
-# elif clientmessage_letterhead == "letter_to_pbadvocate":
-#  letterhead_choice = letter_to_pbadvocate
-# elif clientmesage_letterhead == "letter_to_client":
-#  letterhead_choice = letter_to_client
 ---
 code: |
   # this is for letters generated, printed, and saved in case file
