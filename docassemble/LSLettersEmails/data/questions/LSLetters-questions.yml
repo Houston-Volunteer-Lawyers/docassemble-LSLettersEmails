@@ -33,59 +33,21 @@ fields:
   - phone number: x.phone_number
     validate: phone_number_is_valid
 ---
-# question: |
-#   Client Email
-# subquestion: |
-#   What is the client's email?
-# fields:
-#   - Email: client.email
-#     datatype: email
-# ---
-# question: |
-#   User's Email
-# subquestion: |
-#   What is the user's email?
-# fields:
-#   - Email: initiator.email
-#     datatype: email
-# ---
-# question: |
-#   Advocate Email
-# subquestion: |
-#   What is the Advocate's email?
-# fields:
-#   - Email: advocate.email
-#     datatype: email
-# ---
-# question: |
-#   Pro Bono Advocate Email
-# subquestion: |
-#   What is the Pro Bono Advocate's email?
-# fields:
-#   - Email: pbadvocate.email
-#     datatype: email
-# ---
-# question: |
-#   Pro Bono Advocate Firm
-# subquestion: |
-#   What is the Pro Bono Advocate's firm?
-# fields:
-#   - Firm: pbadvocate.firm
-# ---
-# question: |
-#   Pro Bono Advocate Phone
-# subquestion: |
-#   What is the Pro Bono Advocate's Phone Number?
-# fields:
-#   - Phone: pbadvocate.phone_number
-# ---
-# question: |
-#   Pro Bono Advocate Phone
-# subquestion: |
-#   What is the Pro Bono Advocate's Phone Number?
-# fields:
-#   - Phone: advocate.phone_number
-# ---
+generic object: Individual
+question: |
+  ${capitalize(x.possessive('firm'))}
+fields:
+  - firm: x.firm
+---
+generic object: Individual
+question: |
+  ${capitalize(x.possessive('gender'))}
+field: x.gender
+choices: 
+  - Male: male
+  - Female: female
+  - Other: neutral
+---
 question: |
   Case Number
 fields:
@@ -127,36 +89,6 @@ field: clientmessage.sender
 buttons: 
   - "${ advocate.name.full() }, advocate": advocate
   - "${ initiator.name.full() }, user": initiator
----
-question: | 
-  Gender 
-subquestion: 
-  What is the recipient's gender? 
-field: client.gender
-choices: 
-  - Male: male
-  - Female: female
-  - Other: neutral
----
-question: | 
-  Gender 
-subquestion: 
-  What is the recipient's gender? 
-field: advocate.gender
-choices: 
-  - Male: male
-  - Female: female
-  - Other: neutral
----
-question: | 
-  Gender 
-subquestion: 
-  What is the recipient's gender? 
-field: pbadvocate.gender
-choices: 
-  - Male: male
-  - Female: female
-  - Other: neutral
 ---
 question: | 
   Language  
@@ -257,21 +189,17 @@ question: |
 field: LS_send_email
 subquestion: | 
   % if email_sent_ok:
-  Email sent to ${ clientmessage.recipient }.
-  % elif email_copy_sent_ok:
-    % if clientmessage.recipient == "client":
-  Error sending email to to ${ clientmessage.recipient }. It can be downloaded as letter instead of an email either as a **[PDF](${ letter_to_client.pdf.url_for() })** or a **[DOCX](${ letter_to_client.docx.url_for() })** file. The letters were sent to the case notes.
-    % elif clientmessage.recipient == "pbadvocate":
-  Error sending email to to ${ clientmessage.recipient }. It can be downloaded as letter instead of an email either as a **[PDF](${ letter_to_pbadvocate.pdf.url_for() })** or a **[DOCX](${ letter_to_pbadvocate.docx.url_for() })** file. The letters were sent to the case notes.
-    % endif
-  % else: 
-    % if clientmessage.recipient == "client":
-  Error sending email to to ${ clientmessage.recipient }. It can be downloaded as letter instead of an email either as a **[PDF](${ letter_to_client.pdf.url_for() })** or a **[DOCX](${ letter_to_client.docx.url_for() })** file. 
-    % elif clientmessage.recipient == "pbadvocate":
-  Error sending email to to ${ clientmessage.recipient }. It can be downloaded as letter instead of an email either as a **[PDF](${ letter_to_pbadvocate.pdf.url_for() })** or a **[DOCX](${ letter_to_pbadvocate.docx.url_for() })** file.
-    % endif
-
+  Email sent to ${ clientmessage.recipient } and the case notes.
+  % else:
+    % if email_copy_sent_ok:
+  Error sending email to to ${ clientmessage.recipient }. It can be downloaded as letter instead of an email either as a **[PDF](${ letterhead_choice.pdf.url_for() })** or a **[DOCX](${ letterhead_choice.docx.url_for() })** file. The letters were sent to the case notes.
+  
   Note: PDF versions of the letter will not properly print an envelope from Google Chrome. It must be opened in your local PDF software or in Microsoft Word to properly print an envelope. 
+    % else: 
+  Error sending email to to ${ clientmessage.recipient }. It can be downloaded as letter instead of an email either as a **[PDF](${ letterhead_choice.pdf.url_for() })** or a **[DOCX](${ letterhead_choice.docx.url_for() })** file. The letters werenot sent to the case
+  
+  Note: PDF versions of the letter will not properly print an envelope from Google Chrome. It must be opened in your local PDF software or in Microsoft Word to properly print an envelope. 
+    % endif
   % endif
 section: sent
 ga id: email_sent
@@ -279,18 +207,10 @@ ga id: email_sent
 question: |
   Letter Generated
 subquestion: | 
-  % if clientmessage.recipient == "client":
-    % if email_copy_sent_ok:
-  The letter was generated and sent to the case email. It can also be downloaded as a [PDF](${ letter_to_client.pdf.url_for() }) or a [DOCX](${ letter_to_client.docx.url_for() }) file. 
-    % else: 
-  The letter was generated and *not* sent to the case email. It can be downloaded as a [PDF](${ letter_to_client.pdf.url_for() }) or a [DOCX](${ letter_to_client.docx.url_for() }) file.
-    % endif
-  % elif clientmessage.recipient == "pbadvocate":
-    % if email_copy_sent_ok:
-  The letter was generated and sent to the case email. It can also be downloaded as a [PDF](${ letter_to_pbadvocate.pdf.url_for() }) or a [DOCX](${ letter_to_pbadvocate.docx.url_for() }) file. 
-    % else: 
-  The letter was generated and *not* sent to the case email. It can be downloaded as a [PDF](${ letter_to_pbadvocate.pdf.url_for() }) or a [DOCX](${ letter_to_pbadvocate.docx.url_for() }) file.
-    % endif  
+  % if email_copy_sent_ok:
+  The letter was generated and sent to the case email. It can also be downloaded as a [PDF](${ letterhead_choice.pdf.url_for() }) or a [DOCX](${ letterhead_choice.docx.url_for() }) file. 
+  % else: 
+  The letter was generated and *not* sent to the case email. It can be downloaded as a [PDF](${ letterhead_choice.pdf.url_for() }) or a [DOCX](${ letterhead_choice.docx.url_for() }) file.
   % endif
 
   Any attachments included with the mailed letter need to be referenced in a separate attachment/case note. 
