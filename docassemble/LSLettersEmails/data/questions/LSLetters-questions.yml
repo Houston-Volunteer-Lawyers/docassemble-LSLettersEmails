@@ -234,3 +234,72 @@ fields:
   - Files to Attach: email_attachment_files
     datatype: files
     show if: attachments_yes
+---
+question: |
+  How do you want to email LegalServer?
+field: bcc_case_email
+buttons: 
+  - Blind Carbon Copy (BCC): True
+  - Carbon Copy (CC): False
+---
+generic object: DACatchAll
+question: |
+  What is ${ x.object_name() }?
+fields:
+  - no label: x.value
+validation code: |
+  define(x.instanceName, x.value)
+---
+if: |
+  x.context == 'float' or (x.context == 'add' and isinstance(x.operand, float))
+generic object: DACatchAll
+question: |
+  How much is ${ x.object_name() }?
+fields:
+  - Amount: x.value
+    datatype: currency
+validation code: |
+  define(x.instanceName, x.value)
+---
+if: |
+  x.context == 'int' or (x.context == 'add' and isinstance(x.operand, int))
+generic object: DACatchAll
+question: |
+  How much is ${ x.object_name() }?
+fields:
+  - Amount: x.value
+    datatype: integer
+validation code: |
+  define(x.instanceName, x.value)
+---
+if: |
+  x.context == 'str' and x.instanceName.lower() == 'signature'
+generic object: DACatchAll
+question: |
+  Sign your name
+signature: x.value
+validation code: |
+  define(x.instanceName, x.value)
+---
+if: |
+  "time" in x.instanceName.lower()
+generic object: DACatchAll
+question: |
+  What time is ${ x.object_name() }?
+fields:
+  - Time: x.value
+    datatype: time
+validation code: |
+  define(x.instanceName, x.value)
+---
+if: |
+  "date" in x.instanceName.lower()
+generic object: DACatchAll
+question: |
+  What date is ${ x.object_name() }?
+fields:
+  - Date: x.value
+    datatype: date
+validation code: |
+  define(x.instanceName, x.value)
+---
