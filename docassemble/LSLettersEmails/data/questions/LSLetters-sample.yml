@@ -1,0 +1,163 @@
+comment: | 
+  This block pulls in the main components of the interview. 
+include:
+  - docassemble.LSLettersEmails:LSLetters.yml
+---
+comment: |
+  make any necessary changes to this section to help identify the interview and the correct fields. 
+
+  By default, interviews will be filtered to match the metadata tag equalling the program name. Any interview tagged "everyone" will also be displayed.
+metadata:
+  title: |
+    Letters
+  short title: |
+    LS Client
+  description: |
+    This interview guides a Legal Server user in 
+      sending letters or emails to clients and advocates.
+  authors:
+    - name: Author
+      organization: Organization
+  revision_date: 2019-12-9
+  tags: 
+    - "sidebar_assignment_program"
+    - "Legalserver"
+    - "Staff"
+    - "everyone"
+---
+comment: |
+  This is the opportunity to predefine certain variables. 
+
+  Below defaults the letters to the client and the letterhead as the default settings. 
+
+  You could also set various variables as a result of LegalServer. The example below takes the legal problem code and pulls the first two digits out
+  to set it as an integer for use in later code or references. 
+
+  The `bcc_case_email` field is a question to identify whether you want to cc LegalServer or if you want to bcc LegalServer. That may be a question for the 
+  organization. 
+initial: true
+code: |
+  clientmessage.recipient = "client"
+  clientmessage_letterhead = "default"
+  bcc_case_email = True
+
+  lpc_num = ls_fields.legal_problem_code[0:2]
+  legal_problem_code_number = int(lpc_num)
+---
+comment: |
+  This is the opportunity to replace the HVL letterheads. You can add a new template file to the templates folder of the package. The only thing to change
+  if you want to use the default file options is the `docx template file` in the section below. 
+
+  If you want to add your own options, add this section to the files and change the `name`, `docx template file`, and `variable name`. 
+  There is a section of code that also has to change and a question that has to change. See below for an example. 
+attachment: 
+  name: letter_to_client
+  filename: L${ clientmessage.textoption }_${ format_date(today(), format='yyyy-MM-dd')}
+  docx template file: Letterhead-custom.docx
+  valid formats: 
+    - pdf
+    - docx
+  variable name: customoption
+---
+comment: |
+  Here is the code regarding letterhead options. To add custom options beyond HVL's client and volunteer letterhead, you would add an `elif` 
+  statement for the new options. For example, the customoption field below is the non-standard letterhead. 
+code: |
+  if clientmessage_letterhead == "default":
+    if clientmessage.recipient == "client" or clientmessage.recipient == "advocate":
+      letterhead_choice = letter_to_client
+    elif clientmessage.recipient == "pbadvocate":
+      letterhead_choice = letter_to_pbadvocate
+  elif clientmessage_letterhead == "letter_to_pbadvocate":
+    letterhead_choice = letter_to_pbadvocate
+  elif clientmessage_letterhead == "letter_to_client":
+    letterhead_choice = letter_to_client
+  elif clientmessage_letterhead == "customoption":
+    letterhead_choice = customoption
+# the code above needs to specifically identify which attachment variables are to be used with the letterhead options. The else option will not work.
+---
+comment: |
+  This is the question that needs to be modified for custom additional letterheads. 
+  
+  The custom option below is non-standard.
+question: |
+  Letterhead
+subquestion: |
+  What letterhead do you want to use?
+field: clientmessage_letterhead
+choices: 
+  - Default: default
+    default: true
+  - Pro Bono Advocate: letter_to_pbadvocate
+  - Client: letter_to_client
+  - Custom: customoption
+---
+comment: |
+  This question is required to set the choice of what letters you need. 
+
+  Add any new templates here with the clear name before the colon and the template variable afterwards.
+
+  The template names need to be one complete word. Hyphens and underscores are acceptable. Capitalization matters.
+question: | 
+  Letter  
+subquestion: 
+  Which letter to send to the recipient? 
+field: clientmessage.textoption
+choices: 
+  - Request Letter: requestletter
+  - Custom Letter: Custom
+---
+comment: |
+  If you want a blank option, be sure to include this.
+
+
+  For creating your own templates, you can use Markdown syntax in the template to create formatting. References are available here: https://docassemble.org/docs/documents.html#scratch, 
+  https://docassemble.org/docs/documents.html#from%20markdown and https://daringfireball.net/projects/markdown/.
+
+  You can also use Mako: https://www.makotemplates.org/
+
+  The [BR] references are to break rows. These are custom formatting indicators from Docassemble. The full list is here: https://docassemble.org/docs/documents.html#markup
+
+template: Custom
+subject: | 
+  ${ casenumber } - ${ LPC }
+content: | 
+  ${ clientmessage.toline }, 
+  
+  Sincerely,
+  
+  [BR]
+  [BR]
+  
+  ${ clientmessage.fromline }
+---
+comment: |
+  Here is another sample that also includes an optional line for clients who speak spanish. 
+
+  The if statement could be easily modified based on other variables. The formatting needs to remain similar. You can use python expressions to determine whether 
+  things equal each other or contains or are related. The if statements need to start with the % sign and end with a colon. Elif means else if something, while 
+  else offers an alternative.  The endif statement needs to start with the % sign and end without a colon. 
+
+  All lines need to start with two spaces. Two returns constitute a new paragraph. One return will continue at the end of the previous line. 
+template: requestletter
+subject: | 
+  ${ casenumber } - ${ LPC }
+content: | 
+  ${ clientmessage.toline }, 
+  
+  % if client.language == "es":
+  This is text that only appears if it is a spanish speaker.
+  % if client.language == "zo":
+  This is text that only appears if it is a chinese speaker.
+  % else:
+  This is text that appears for non-spanish and non-chinese speakers.
+  % endif
+
+  Take a look at me.
+
+  Sincerely,
+  
+  [BR]
+  [BR]
+  
+  ${ clientmessage.fromline }
