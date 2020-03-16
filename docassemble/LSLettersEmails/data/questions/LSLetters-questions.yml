@@ -223,7 +223,7 @@ ga id: letter_generated
 question: |
   Letter Generated
 subquestion: | 
-  % if email_copy_sent_ok_to_postalmethods:
+  % if email_sent_ok_to_postalmethods:
   The letter was generated and sent to PostalMethods case email. It can also be downloaded as a [PDF](${ letterhead_choice.pdf.url_for() }) or a [DOCX](${ letterhead_choice.docx.url_for() }) file. 
   % else: 
   The letter was generated and *not* sent to the case email. It can be downloaded as a [PDF](${ letterhead_choice.pdf.url_for() }) or a [DOCX](${ letterhead_choice.docx.url_for() }) file.
