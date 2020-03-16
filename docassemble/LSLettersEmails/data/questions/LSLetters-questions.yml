@@ -221,6 +221,22 @@ section: sent
 ga id: letter_generated
 ---
 question: |
+  Letter Generated
+subquestion: | 
+  % if email_copy_sent_ok_to_postalmethods:
+  The letter was generated and sent to PostalMethods case email. It can also be downloaded as a [PDF](${ letterhead_choice.pdf.url_for() }) or a [DOCX](${ letterhead_choice.docx.url_for() }) file. 
+  % else: 
+  The letter was generated and *not* sent to the case email. It can be downloaded as a [PDF](${ letterhead_choice.pdf.url_for() }) or a [DOCX](${ letterhead_choice.docx.url_for() }) file.
+  % endif
+
+  Any attachments included with the mailed letter need to be referenced in a separate attachment/case note. 
+  
+  Note: PDF versions of the letter will not properly print an envelope from Google Chrome. It must be opened in your local PDF software or in Microsoft Word to properly print an envelope. 
+field: LS_send_letter_via_postalmethods
+section: sent
+ga id: letter_generated_via_postalmethods
+---
+question: |
   Special Problem Code
 subquestion: |
   What is the special problem code of the case? 
@@ -302,4 +318,11 @@ fields:
     datatype: date
 validation code: |
   define(x.instanceName, x.value)
+---
+question: |
+  Do you want to automate the letter via PostalMethods?
+field: send_via_postalmethods
+buttons:
+  - Print and Mail
+  - PostalMethods
 ---

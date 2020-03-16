@@ -40,6 +40,8 @@ code: |
   clientmessage.recipient = "client"
   clientmessage_letterhead = "default"
   bcc_case_email = True
+  
+  send_via_postalmethods = "print and mail"
 
   lpc_num = ls_fields.legal_problem_code[0:2]
   legal_problem_code_number = int(lpc_num)
