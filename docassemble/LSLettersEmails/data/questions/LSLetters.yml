@@ -59,6 +59,9 @@ code: |
       clientmessage.language
   else: 
     clientmessage.language = "en"
+  if clientmessage.method == "Letter":
+    send_via_postalmethods
+    
   clientmessage.textoption
   if correct_letter_text == False:
     undefine('clientmessage.text')
@@ -114,7 +117,7 @@ code: |
   if clientmessage.recipient == "client":
     email_sent_ok_to_postalmethods = send_email(to=postalmethods, cc=[initiator], bcc=[LSCase], template=editted_letter, attachments=[letter_to_client_via_postalmethods.pdf])
   elif clientmessage.recipient == "advocate":
-    email_sent_ok_to_postalmethods = send_email(to=postalmethods, cc=[initiator], bcc=[LSCase], template=editted_letter, attachments=[letter_to_advocate_via_postalmethods.pdf])
+    email_sent_ok_to_postalmethods = send_email(to=postalmethods, cc=[initiator], bcc=[LSCase], template=editted_letter, attachments=[letter_ to_advocate_via_postalmethods.pdf])
   elif clientmessage.recipient == "pbadvocate":
     email_sent_ok_to_postalmethods = send_email(to=postalmethods, cc=[initiator], bcc=[LSCase], template=editted_letter, attachments=[letter_to_pbadvocate_via_postalmethods.pdf])
 

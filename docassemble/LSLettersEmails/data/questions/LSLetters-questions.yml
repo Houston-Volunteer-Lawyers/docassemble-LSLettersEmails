@@ -164,6 +164,12 @@ subquestion: |
   Email: ${ client.email }
   % endif
 
+  % if clientmessage.method == "Letter":
+    % if send_via_postalmethods:
+  Since this is being sent via PostalMethods, please add a '/s/ your name' line in between the [BR] tags in the signature line. It should be on a separate line in between the two. 
+    % endif
+  % endif
+
   Subject: ${ value(clientmessage.textoption).subject } 
 fields: 
   - no label: clientmessage.text
