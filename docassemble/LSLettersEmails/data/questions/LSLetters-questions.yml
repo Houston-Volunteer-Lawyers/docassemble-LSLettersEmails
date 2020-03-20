@@ -175,7 +175,6 @@ ga id: edit_letter
 ---
 question: |
   All Done
-speak_text: True
 ga id: all_done
 subquestion: |
   You're all done. Please feel free to close this window.
@@ -224,9 +223,9 @@ question: |
   Letter Generated
 subquestion: | 
   % if email_sent_ok_to_postalmethods:
-  The letter was generated and sent to PostalMethods case email. It can also be downloaded as a [PDF](${ letterhead_choice.pdf.url_for() }) or a [DOCX](${ letterhead_choice.docx.url_for() }) file. 
+  The letter was generated and sent to PostalMethods & the case email. It can also be downloaded as a [PDF](${ letterhead_choice.pdf.url_for() }) or a [DOCX](${ letterhead_choice.docx.url_for() }) file. 
   % else: 
-  The letter was generated and *not* sent to the case email. It can be downloaded as a [PDF](${ letterhead_choice.pdf.url_for() }) or a [DOCX](${ letterhead_choice.docx.url_for() }) file.
+  The letter was generated and *not* sent to PostalMethods & the case email. It can be downloaded as a [PDF](${ letterhead_choice.pdf.url_for() }) or a [DOCX](${ letterhead_choice.docx.url_for() }) file.
   % endif
 
   Any attachments included with the mailed letter need to be referenced in a separate attachment/case note. 

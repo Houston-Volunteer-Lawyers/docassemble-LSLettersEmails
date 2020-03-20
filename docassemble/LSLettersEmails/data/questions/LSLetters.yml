@@ -51,16 +51,6 @@ code: |
 
   menu_items = [ action_menu_item('Review Answers', 'review_answers') ]
 
-  LSCase.name.first = "LegalServer"
-  LSCase.name.last = "Case"
-  if defined('ls_fields.case_email'):
-    LSCase.email = ls_fields.case_email
-  else:
-    LSCase.email = "no-reply@hvlp.org"
-
-  postalmethods.name.first = "Postal"
-  postalmethods.name.last = "Methods"
-  postalmethods.email = "send@letter.postalmethods.com"
   clientmessage.recipient
   if clientmessage.recipient == "client":
     if client.language == "es" or client.language == "en" or client.language == "zo" or client.language == "vi":
@@ -122,11 +112,11 @@ code: |
 code: |
   # this is for emails generated and sent to recipient and sent via PostalMethods
   if clientmessage.recipient == "client":
-    email_sent_ok_to_postalmethods = send_email(to=postalmethods, cc=[initiator], bcc=[LSCase], template=editted_letter, attachments=[letter_sent_to_client_via_postalmethods.pdf])
+    email_sent_ok_to_postalmethods = send_email(to=postalmethods, cc=[initiator], bcc=[LSCase], template=editted_letter, attachments=[letter_to_client_via_postalmethods.pdf])
   elif clientmessage.recipient == "advocate":
-    email_sent_ok_to_postalmethods = send_email(to=postalmethods, cc=[initiator], bcc=[LSCase], template=editted_letter, attachments=[letter_sent_to_advocate_via_postalmethods.pdf])
+    email_sent_ok_to_postalmethods = send_email(to=postalmethods, cc=[initiator], bcc=[LSCase], template=editted_letter, attachments=[letter_to_advocate_via_postalmethods.pdf])
   elif clientmessage.recipient == "pbadvocate":
-    email_sent_ok_to_postalmethods = send_email(to=postalmethods, cc=[initiator], bcc=[LSCase], template=editted_letter, attachments=[letter_sent_to_pbadvocate_via_postalmethods.pdf])
+    email_sent_ok_to_postalmethods = send_email(to=postalmethods, cc=[initiator], bcc=[LSCase], template=editted_letter, attachments=[letter_to_pbadvocate_via_postalmethods.pdf])
 
 ---
 template: LetterGenerated
@@ -184,6 +174,19 @@ code: |
     clientmessage.fromline = advocate.name 
   elif clientmessage.sender == "initiator":
     clientmessage.fromline =  initiator.name
+---
+code: |
+  LSCase.name.first = "LegalServer"
+  LSCase.name.last = "Case"
+  if defined('ls_fields.case_email'):
+    LSCase.email = ls_fields.case_email
+  else:
+    LSCase.email = "no-reply@hvlp.org"
+---
+code: | 
+  postalmethods.name.first = "Postal"
+  postalmethods.name.last = "Methods"
+  postalmethods.email = "send@letter.postalmethods.com"
 ---
 code: | 
   if defined('ls_fields.legal_problem_code'):
