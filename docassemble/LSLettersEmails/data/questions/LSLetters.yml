@@ -115,11 +115,11 @@ code: |
 code: |
   # this is for emails generated and sent to recipient and sent via PostalMethods
   if clientmessage.recipient == "client":
-    email_sent_ok_to_postalmethods = send_email(to=postalmethods, cc=[initiator], bcc=[LSCase], template=editted_letter, attachments=[letter_to_client_via_postalmethods.pdf])
+    email_sent_ok_to_postalmethods = send_email(to=postalmethods, cc=[initiator], bcc=[LSCase], template=editted_letter_postal, attachments=[letter_to_client_via_postalmethods.pdf])
   elif clientmessage.recipient == "advocate":
-    email_sent_ok_to_postalmethods = send_email(to=postalmethods, cc=[initiator], bcc=[LSCase], template=editted_letter, attachments=[letter_to_advocate_via_postalmethods.pdf])
+    email_sent_ok_to_postalmethods = send_email(to=postalmethods, cc=[initiator], bcc=[LSCase], template=editted_letter_postal, attachments=[letter_to_advocate_via_postalmethods.pdf])
   elif clientmessage.recipient == "pbadvocate":
-    email_sent_ok_to_postalmethods = send_email(to=postalmethods, cc=[initiator], bcc=[LSCase], template=editted_letter, attachments=[letter_to_pbadvocate_via_postalmethods.pdf])
+    email_sent_ok_to_postalmethods = send_email(to=postalmethods, cc=[initiator], bcc=[LSCase], template=editted_letter_postal, attachments=[letter_to_pbadvocate_via_postalmethods.pdf])
 
 ---
 template: LetterGenerated
@@ -132,6 +132,12 @@ content: |
 template: editted_letter
 subject: | 
   ${ value(clientmessage.textoption).subject }
+content: | 
+  ${ clientmessage.text }
+---
+template: editted_letter_postal
+subject: | 
+  ${ funding_code } - ${ value(clientmessage.textoption).subject }
 content: | 
   ${ clientmessage.text }
 ---

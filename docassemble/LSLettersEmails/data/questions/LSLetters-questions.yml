@@ -331,3 +331,9 @@ buttons:
   - Print and Mail
   - PostalMethods
 ---
+question: |
+  What is the funding code for this mail?
+fields:
+  - no label: funding_code
+    datatype: integer
+---
