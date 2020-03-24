@@ -7,9 +7,6 @@ field: clientmessage.method
 buttons: 
   - Email
   - Letter
-need: 
-  - clientmessage.text
-  - correct_letter_text
 ---
 # question: |
 #   Case Email
