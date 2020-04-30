@@ -17,6 +17,8 @@ Letters can be sent to the Client or the Pro Bono Volunteer using either email o
 
 There are a number of custom variables that this pulls from LegalServer. `legal_problem_code_num` is the integer value of the first two characters of the `Legal Problem Code`. This may generate an error if those are not numeric. `special_legal_problem_code_num` is the integer value of the first three or four charachters of `Special Legal Problem Code` if that was available. `LPC` is the name of the `Special Legal Problem Code` if that is available and of the `Legal Problem Code` if the `Special Legal Problem Code` is not available. This is used in the subject of the letters/emails in the example. `casenumber` is similarly used, but a little more obvious.  
 
+In sending letters, there is a new feature to send to PostalMethods. This is an automated letter printing service. By sending a letter to them as an attachment, they will print it and mail it for you if you have an existing account with a postive balance and are using the template for their letters. It requires setting up the template for a two window envelope. 
+
 ## Customization
 ### Sample
 Take a look at the `LSLetters-sample.yml` file that is in this package. This is an example file that you could install as a separate docassemble package. This has all the basic aspects of the letter that you can then modify as you need with comments included on each docassemble block. 
