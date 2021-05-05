@@ -11,16 +11,27 @@ choices:
   - Client: letter_to_client
 ---
 code: |
-  if send_via_postalmethods == "PostalMethods":
-    if clientmessage_letterhead == "default":
-      if clientmessage.recipient == "client" or clientmessage.recipient == "advocate":
-        letterhead_choice = letter_to_client_via_postalmethods
-      elif clientmessage.recipient == "pbadvocate":
+  if clientmessage.method == "Letter":
+    if send_via_postalmethods == "PostalMethods":
+      if clientmessage_letterhead == "default":
+        if clientmessage.recipient == "client" or clientmessage.recipient == "advocate":
+          letterhead_choice = letter_to_client_via_postalmethods
+        elif clientmessage.recipient == "pbadvocate":
+          letterhead_choice = letter_to_pbadvocate_via_postalmethods
+      elif clientmessage_letterhead == "letter_to_pbadvocate":
         letterhead_choice = letter_to_pbadvocate_via_postalmethods
-    elif clientmessage_letterhead == "letter_to_pbadvocate":
-      letterhead_choice = letter_to_pbadvocate_via_postalmethods
-    elif clientmessage_letterhead == "letter_to_client":
-      letterhead_choice = letter_to_client_via_postalmethods
+      elif clientmessage_letterhead == "letter_to_client":
+        letterhead_choice = letter_to_client_via_postalmethods
+    else:
+      if clientmessage_letterhead == "default":
+        if clientmessage.recipient == "client" or clientmessage.recipient == "advocate":
+          letterhead_choice = letter_to_client
+        elif clientmessage.recipient == "pbadvocate":
+          letterhead_choice = letter_to_pbadvocate
+      elif clientmessage_letterhead == "letter_to_pbadvocate":
+        letterhead_choice = letter_to_pbadvocate
+      elif clientmessage_letterhead == "letter_to_client":
+        letterhead_choice = letter_to_client
   else:
     if clientmessage_letterhead == "default":
       if clientmessage.recipient == "client" or clientmessage.recipient == "advocate":
