@@ -81,7 +81,7 @@ code: |
 ---
 code: |
   # this is for emails generated and sent to recipient
-  log("trying to send email with body of " + editted_letter)
+  log("trying to send email with body of " + clientmessage.text + " and a subject of " + value(clientmessage.textoption).subject )
   if bcc_case_email:
     if attachments_yes:
       if clientmessage.recipient == "client":
