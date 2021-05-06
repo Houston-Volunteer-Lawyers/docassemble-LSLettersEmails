@@ -51,6 +51,7 @@ code: |
 
   menu_items = [ action_menu_item('Review Answers', 'review_answers') ]
   LSCase.name.first
+  initiator_email_checked
   clientmessage.recipient
   if clientmessage.recipient == "client":
     if client.language == "es" or client.language == "en" or client.language == "zo" or client.language == "vi":
@@ -78,6 +79,13 @@ code: |
     else:
       LS_send_letter
   all_done
+---
+code: |
+  if '<' in initiator.email:
+    start_email = initiator.email.split('<')[1]
+    finish_email = start_email.split('>')[0]
+    initiator.email = finish_email
+  initiator_email_checked = True
 ---
 code: |
   # this is for emails generated and sent to recipient
