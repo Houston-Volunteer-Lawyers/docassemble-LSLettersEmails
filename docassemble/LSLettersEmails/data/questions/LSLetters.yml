@@ -74,13 +74,25 @@ code: |
   if clientmessage.method == "Email":
     LS_send_email
   elif clientmessage.method == "Letter":
-    if clientmessage.recipient == "client" and client.mailing_address_text is not None:
-      client_address_confirmed
+    client_address_checked
     if send_via_postalmethods == "PostalMethods":
       LS_send_letter_via_postalmethods
     else:
       LS_send_letter
   all_done
+---
+code: | 
+  # check for client address
+  if clientmessage.recipient == "client":
+    if defined('client.mailing_address_text'):
+      if client.mailing_address_text is not None:
+        if defined('client.address_text'):
+          if not client.mailing_address_text == client.address_text:
+            client_address_confirmed
+        else:
+          client_address_confirmed
+    
+  client_address_checked = True
 ---
 code: |
   if '<' in initiator.email:
