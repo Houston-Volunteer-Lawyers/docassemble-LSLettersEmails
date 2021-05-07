@@ -74,7 +74,7 @@ code: |
   if clientmessage.method == "Email":
     LS_send_email
   elif clientmessage.method == "Letter":
-    if client.mailing_address_text is not None:
+    if clientmessage.recipient == "client" and client.mailing_address_text is not None:
       client_address_confirmed
     if send_via_postalmethods == "PostalMethods":
       LS_send_letter_via_postalmethods

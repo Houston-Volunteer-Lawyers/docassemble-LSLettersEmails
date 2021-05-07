@@ -131,10 +131,11 @@ fields:
 question: |
   ${capitalize(client.possessive('address'))}
 subquestion: | 
-  Please confirm the client's address.
+  Please confirm the client's address. The fields below auto-populate with the client's address from LegalServer (and not their mailing address.
   
-  Mailing Address in LegalServer: ${ client.mailing_address_text } 
+  Mailing Address from LegalServer: **${ client.mailing_address_text }**
   
+  The address indicated below is the one that will appear on the letter. 
 fields:
   - address: client.address.address
     address autocomplete: True
