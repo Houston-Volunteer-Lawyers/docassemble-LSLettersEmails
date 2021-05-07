@@ -129,7 +129,7 @@ fields:
     required: False
 ---
 question: |
-  ${capitalize(x.possessive('address'))}
+  ${capitalize(client.possessive('address'))}
 subquestion: | 
   Please confirm the client's address.
   
@@ -149,7 +149,6 @@ fields:
   - county: client.address.county
     required: False
 continue button field: client_address_confirmed    
-
 ---
 question: | 
   Is this the correct letter?
