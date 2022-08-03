@@ -50,7 +50,8 @@ mandatory: True
 code: |
 
   menu_items = [ action_menu_item('Review Answers', 'review_answers') ]
-
+  LSCase.name.first
+  initiator_email_checked
   clientmessage.recipient
   if clientmessage.recipient == "client":
     if client.language == "es" or client.language == "en" or client.language == "zo" or client.language == "vi":
@@ -73,53 +74,75 @@ code: |
   if clientmessage.method == "Email":
     LS_send_email
   elif clientmessage.method == "Letter":
+    client_address_checked
     if send_via_postalmethods == "PostalMethods":
       LS_send_letter_via_postalmethods
     else:
       LS_send_letter
   all_done
 ---
+code: | 
+  # check for client address
+  if clientmessage.recipient == "client":
+    if defined('client.mailing_address_text'):
+      if client.mailing_address_text is not None:
+        if defined('client.address_text'):
+          if not client.mailing_address_text == client.address_text:
+            client_address_confirmed
+        else:
+          client_address_confirmed
+    
+  client_address_checked = True
+---
+code: |
+  if '<' in initiator.email:
+    start_email = initiator.email.split('<')[1]
+    finish_email = start_email.split('>')[0]
+    initiator.email = finish_email
+  initiator_email_checked = True
+---
 code: |
   # this is for emails generated and sent to recipient
+  # log("trying to send email with body of " + clientmessage.text + " and a subject of " + value(clientmessage.textoption).subject + " to client " + str(client.name) + ", " + client.email + " and to initiator " + str(initiator.name) + ", " + initiator.email + " and to LSCAse " + str(LSCase.name) + ", " + LSCase.email )
   if bcc_case_email:
     if attachments_yes:
       if clientmessage.recipient == "client":
-        email_sent_ok = send_email(to=client, cc=[initiator], bcc=[LSCase], template=editted_letter, attachments=[email_attachment_files])
+        email_sent_ok = send_email(to=[client], cc=[initiator], bcc=[LSCase], template=editted_letter, attachments=[email_attachment_files])
       elif clientmessage.recipient == "advocate":
-        email_sent_ok = send_email(to=advocate, cc=[initiator], bcc=[LSCase], template=editted_letter, attachments=[email_attachment_files])
+        email_sent_ok = send_email(to=[advocate], cc=[initiator], bcc=[LSCase], template=editted_letter, attachments=[email_attachment_files])
       elif clientmessage.recipient == "pbadvocate":
-        email_sent_ok = send_email(to=pbadvocate, cc=[initiator], bcc=[LSCase], template=editted_letter, attachments=[email_attachment_files])
+        email_sent_ok = send_email(to=[pbadvocate], cc=[initiator], bcc=[LSCase], template=editted_letter, attachments=[email_attachment_files])
     else: 
       if clientmessage.recipient == "client":
-        email_sent_ok = send_email(to=client, cc=[initiator], bcc=[LSCase], template=editted_letter)
+        email_sent_ok = send_email(to=[client], cc=[initiator], bcc=[LSCase], template=editted_letter)
       elif clientmessage.recipient == "advocate":
-        email_sent_ok = send_email(to=advocate, cc=[initiator], bcc=[LSCase], template=editted_letter)
+        email_sent_ok = send_email(to=[advocate], cc=[initiator], bcc=[LSCase], template=editted_letter)
       elif clientmessage.recipient == "pbadvocate":
-        email_sent_ok = send_email(to=pbadvocate, cc=[initiator], bcc=[LSCase], template=editted_letter)
+        email_sent_ok = send_email(to=[pbadvocate], cc=[initiator], bcc=[LSCase], template=editted_letter)
   else:
     if attachments_yes:
       if clientmessage.recipient == "client":
-        email_sent_ok = send_email(to=client, cc=[initiator, LSCase], template=editted_letter, attachments=[email_attachment_files])
+        email_sent_ok = send_email(to=[client], cc=[initiator, LSCase], template=editted_letter, attachments=[email_attachment_files])
       elif clientmessage.recipient == "advocate":
-        email_sent_ok = send_email(to=advocate, cc=[initiator, LSCase], template=editted_letter, attachments=[email_attachment_files])
+        email_sent_ok = send_email(to=[advocate], cc=[initiator, LSCase], template=editted_letter, attachments=[email_attachment_files])
       elif clientmessage.recipient == "pbadvocate":
-        email_sent_ok = send_email(to=pbadvocate, cc=[initiator, LSCase], template=editted_letter, attachments=[email_attachment_files])
+        email_sent_ok = send_email(to=[pbadvocate], cc=[initiator, LSCase], template=editted_letter, attachments=[email_attachment_files])
     else: 
       if clientmessage.recipient == "client":
-        email_sent_ok = send_email(to=client, cc=[initiator, LSCase], template=editted_letter)
+        email_sent_ok = send_email(to=[client], cc=[initiator, LSCase], template=editted_letter)
       elif clientmessage.recipient == "advocate":
-        email_sent_ok = send_email(to=advocate, cc=[initiator, LSCase], template=editted_letter)
+        email_sent_ok = send_email(to=[advocate], cc=[initiator, LSCase], template=editted_letter)
       elif clientmessage.recipient == "pbadvocate":
-        email_sent_ok = send_email(to=pbadvocate, cc=[initiator, LSCase], template=editted_letter)
+        email_sent_ok = send_email(to=[pbadvocate], cc=[initiator, LSCase], template=editted_letter)
 ---
 code: |
   # this is for emails generated and sent to recipient and sent via PostalMethods
   if clientmessage.recipient == "client":
-    email_sent_ok_to_postalmethods = send_email(to=postalmethods, cc=[initiator], bcc=[LSCase], template=editted_letter_postal, attachments=[letter_to_client_via_postalmethods.pdf])
+    email_sent_ok_to_postalmethods = send_email(to=[postalmethods], cc=[initiator], bcc=[LSCase], template=editted_letter_postal, attachments=letter_to_client_via_postalmethods.pdf)
   elif clientmessage.recipient == "advocate":
-    email_sent_ok_to_postalmethods = send_email(to=postalmethods, cc=[initiator], bcc=[LSCase], template=editted_letter_postal, attachments=[letter_to_advocate_via_postalmethods.pdf])
+    email_sent_ok_to_postalmethods = send_email(to=[postalmethods], cc=[initiator], bcc=[LSCase], template=editted_letter_postal, attachments=letter_to_advocate_via_postalmethods.pdf)
   elif clientmessage.recipient == "pbadvocate":
-    email_sent_ok_to_postalmethods = send_email(to=postalmethods, cc=[initiator], bcc=[LSCase], template=editted_letter_postal, attachments=[letter_to_pbadvocate_via_postalmethods.pdf])
+    email_sent_ok_to_postalmethods = send_email(to=[postalmethods], cc=[initiator], bcc=[LSCase], template=editted_letter_postal, attachments=letter_to_pbadvocate_via_postalmethods.pdf)
 
 ---
 template: LetterGenerated
@@ -189,8 +212,13 @@ code: |
   LSCase.name.last = "Case"
   if defined('ls_fields.case_email'):
     LSCase.email = ls_fields.case_email
-  else:
-    LSCase.email = "no-reply@hvlp.org"
+  
+---
+question: | 
+  What is the LegalServer Case Email Address?
+fields: 
+  - Email: LSCase.email
+    datatype: email
 ---
 code: | 
   postalmethods.name.first = "Postal"

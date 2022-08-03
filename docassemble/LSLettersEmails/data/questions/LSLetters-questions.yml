@@ -128,6 +128,31 @@ fields:
   - county: x.address.county
     required: False
 ---
+question: |
+  ${capitalize(client.possessive('address'))}
+subquestion: | 
+  Please confirm the client's address. The fields below auto-populate with the client's address from LegalServer (and not their mailing address).
+  
+  % if defined('client.mailing_address_text'):
+  Mailing Address from LegalServer: **${ client.mailing_address_text }**
+  % endif
+  
+  The address indicated below is the one that will appear on the letter. 
+fields:
+  - address: client.address.address
+    address autocomplete: True
+  - unit: client.address.unit
+    required: False
+  - city: client.address.city
+  - state: client.address.state
+    code: |
+      states_list()
+    default: "TX"
+  - zip: client.address.zip
+  - county: client.address.county
+    required: False
+continue button field: client_address_confirmed    
+---
 question: | 
   Is this the correct letter?
 subquestion: |
