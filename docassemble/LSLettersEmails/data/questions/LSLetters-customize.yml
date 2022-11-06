@@ -9,6 +9,8 @@ choices:
     default: true
   - Pro Bono Advocate: letter_to_pbadvocate
   - Client: letter_to_client
+id: letterhead
+ga id: letterhead
 ---
 code: |
   if clientmessage.method == "Letter":
@@ -88,6 +90,8 @@ field: clientmessage.textoption
 choices: 
   - Letter1: Letter1
   - Closing due to reconciling with spouse after referral: ClosingLetterReconciledwithSpouse
+id: letter choice
+ga id: letter choice
 ---
 template: Letter1
 subject: |

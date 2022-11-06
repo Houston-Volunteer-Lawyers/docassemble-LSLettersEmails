@@ -93,6 +93,8 @@ choices:
   - Pro Bono Advocate: letter_to_pbadvocate
   - Client: letter_to_client
   - Custom: customoption
+id: letterhead
+ga id: letterhead
 ---
 comment: |
   This question is required to set the choice of what letters you need. 
@@ -108,6 +110,8 @@ field: clientmessage.textoption
 choices: 
   - Request Letter: requestletter
   - Custom Letter: Custom
+id: letter choice
+ga id: letter choice
 ---
 comment: |
   If you want a blank option, be sure to include this.
@@ -149,7 +153,7 @@ content: |
   
   % if client.language == "es":
   This is text that only appears if it is a spanish speaker.
-  % if client.language == "zo":
+  % elif client.language == "zo":
   This is text that only appears if it is a chinese speaker.
   % else:
   This is text that appears for non-spanish and non-chinese speakers.
@@ -163,3 +167,4 @@ content: |
   [BR]
   
   ${ clientmessage.fromline }
+---

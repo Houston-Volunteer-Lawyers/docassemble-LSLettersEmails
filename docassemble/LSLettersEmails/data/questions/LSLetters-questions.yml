@@ -7,6 +7,8 @@ field: clientmessage.method
 buttons: 
   - Email
   - Letter
+id: client message method
+ga id: client message method
 ---
 # question: |
 #   Case Email
@@ -22,6 +24,8 @@ question: |
 fields:
   - Email: x.email
     datatype: email
+id: generic object email
+ga id: generic object email
 ---
 generic object: Individual
 question: |
@@ -29,12 +33,16 @@ question: |
 fields:
   - phone number: x.phone_number
     validate: phone_number_is_valid
+id: generic object phone
+ga id: generic object phone
 ---
 generic object: Individual
 question: |
   ${capitalize(x.possessive('firm'))}
 fields:
   - firm: x.firm
+id: generic object firm
+ga id: generic object firm
 ---
 generic object: Individual
 question: |
@@ -44,11 +52,15 @@ choices:
   - Male: male
   - Female: female
   - Other: neutral
+id: generic object gender
+ga id: generic object gender 
 ---
 question: |
   Case Number
 fields:
   - Case Number: casenumber
+id: case number
+ga id: case number
 ---
 question: |
   Recipient
@@ -77,6 +89,8 @@ buttons:
   - "${ client.name.full() }, Client": client
  # - "${ advocate.name.full() }, advocate": advocate
   - "${ the_pbadvocate }, Pro Bono Volunteer": pbadvocate
+id: recipient
+ga id: recipient
 ---
 question: |
   Sender
@@ -86,6 +100,8 @@ field: clientmessage.sender
 buttons: 
   - "${ advocate.name.full() }, advocate": advocate
   - "${ initiator.name.full() }, user": initiator
+id: sender
+ga id: sender
 ---
 question: | 
   Language  
@@ -98,6 +114,8 @@ choices:
   - Spanish: es
   - Chinese: zo
   - Vietnamese: vi
+id: message language
+ga id: message language
 ---
 question: | 
   Language  
@@ -110,6 +128,8 @@ choices:
   - Spanish: es
   - Chinese: zo
   - Vietnamese: vi
+id: client language
+ga id: client language
 ---
 generic object: Individual
 question: |
@@ -127,6 +147,8 @@ fields:
   - zip: x.address.zip
   - county: x.address.county
     required: False
+id: generic object address
+ga id: generic object address
 ---
 question: |
   ${capitalize(client.possessive('address'))}
@@ -152,6 +174,8 @@ fields:
   - county: client.address.county
     required: False
 continue button field: client_address_confirmed    
+id: confirm client address
+ga id: confirm client address
 ---
 question: | 
   Is this the correct letter?
@@ -172,6 +196,7 @@ subquestion: |
 yesno: correct_letter_text
 section: letter
 ga id: confirm_letter
+id: confirm_letter
 ---
 question: | 
   Any Edits?
@@ -200,6 +225,7 @@ fields:
     default: ${ value(clientmessage.textoption) }
 section: letter
 ga id: edit_letter
+id: edit_letter
 ---
 question: |
   All Done
@@ -210,6 +236,8 @@ section: conclusion
 buttons:
   - Exit: exit
 sets: all_done
+ga_id: all_done
+id: all_done
 ---
 question: |
   Email Sent
@@ -230,6 +258,7 @@ subquestion: |
   % endif
 section: sent
 ga id: email_sent
+id: email_sent
 ---
 question: |
   Letter Generated
@@ -246,6 +275,7 @@ subquestion: |
 field: LS_send_letter
 section: sent
 ga id: letter_generated
+id: letter_generated
 ---
 question: |
   Letter Generated
@@ -262,12 +292,15 @@ subquestion: |
 field: LS_send_letter_via_postalmethods
 section: sent
 ga id: letter_generated_via_postalmethods
+id: letter_generated_via_postalmethods
 ---
 question: |
   Special Problem Code
 subquestion: |
   What is the special problem code of the case? 
 field: ls_fields.special_legal_problem_code
+id: special problem code
+ga id: special problem code
 ---
 question: |
   Attachments
@@ -277,6 +310,8 @@ fields:
   - Files to Attach: email_attachment_files
     datatype: files
     show if: attachments_yes
+id: add attachments
+ga id: add attachments
 ---
 question: |
   How do you want to email LegalServer?
@@ -284,6 +319,8 @@ field: bcc_case_email
 buttons: 
   - Blind Carbon Copy (BCC): True
   - Carbon Copy (CC): False
+ga id: bcc case email
+id: bcc case email
 ---
 generic object: DACatchAll
 question: |
@@ -292,6 +329,8 @@ fields:
   - no label: x.value
 validation code: |
   define(x.instanceName, x.value)
+ga id: da catchall generic
+id: da catchall generic
 ---
 if: |
   x.context == 'float' or (x.context == 'add' and isinstance(x.operand, float))
@@ -303,6 +342,8 @@ fields:
     datatype: currency
 validation code: |
   define(x.instanceName, x.value)
+ga id: da catchall generic currency
+id: da catchall generic currency
 ---
 if: |
   x.context == 'int' or (x.context == 'add' and isinstance(x.operand, int))
@@ -314,6 +355,8 @@ fields:
     datatype: integer
 validation code: |
   define(x.instanceName, x.value)
+id: da catchall generic integer
+ga id: da catchall generic integer
 ---
 if: |
   x.context == 'str' and x.instanceName.lower() == 'signature'
@@ -323,6 +366,8 @@ question: |
 signature: x.value
 validation code: |
   define(x.instanceName, x.value)
+id: da catchall signature
+ga id: da catchall signature
 ---
 if: |
   "time" in x.instanceName.lower()
@@ -334,6 +379,8 @@ fields:
     datatype: time
 validation code: |
   define(x.instanceName, x.value)
+id: da catchall time
+ga id: da catchall time
 ---
 if: |
   "date" in x.instanceName.lower()
@@ -345,6 +392,8 @@ fields:
     datatype: date
 validation code: |
   define(x.instanceName, x.value)
+id: da catchall date
+ga id: da catchall date
 ---
 question: |
   Do you want to automate the letter via PostalMethods?
@@ -352,10 +401,14 @@ field: send_via_postalmethods
 buttons:
   - Print and Mail
   - PostalMethods
+id: letter via postalmethods
+ga id: letter via postalmethods
 ---
 question: |
   What is the funding code for this mail?
 fields:
   - no label: funding_code
     datatype: integer
+id: funding code
+ga id: funding code
 ---

@@ -52,3 +52,7 @@ The system also gives you the option on how to send the information to LegalSeve
 
 ### Mailgun/Email Notifications
 If you are using Mailgun, you will not automatically get bounce and failure notices regarding emails that did not properly send. You can use Zapier or another service to configure the webhooks in Mailgun to report those bounces to a different authority. For example, HVL configured those to report to a MS Teams Channel. 
+
+### Change Log
+
+See the separate file for the Change Log. 
